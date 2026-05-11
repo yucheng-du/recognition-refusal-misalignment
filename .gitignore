@@ -1,0 +1,58 @@
+# Heavy outputs — raw activation tensors, intermediate experiment dumps.
+experiments/signals/
+experiments/early_exit/
+experiments/fact800/
+experiments/semantic_entropy/
+experiments/squad2_pilot/
+experiments/attn_mlp_decomp/
+experiments/attn_mlp_decomp_math800/
+experiments/attractor_tightness/
+experiments/causal_editing/
+experiments/causal_editing_v2/
+experiments/causal_editing_v3/
+experiments/causal_editing_fact/
+experiments/causal_editing_fact_v2/
+experiments/dsd_directions/
+experiments/geometric_analysis/
+experiments/phase_transition/
+experiments/subspace_probe/
+experiments/token_attribution/
+experiments/activation_patching/
+experiments/_legacy/
+
+# Per-prompt annotation TSVs and steering generation logs.
+experiments/intervention/samples_*.tsv
+experiments/steering/steering_samples_*.jsonl
+
+# Run logs and external dataset clones (fetched separately per data/README.md).
+logs/
+external_datasets/
+
+# LaTeX build artifacts.
+paper/main.aux
+paper/main.bbl
+paper/main.blg
+paper/main.fdb_latexmk
+paper/main.fls
+paper/main.log
+paper/main.out
+paper/main.synctex.gz
+
+# Python bytecode / virtualenvs.
+**/__pycache__/
+**/*.py[cod]
+**/*.pyo
+.venv/
+venv/
+
+# OS / IDE noise.
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Sensitive — never commit.
+.env
+.env.*
+*.local

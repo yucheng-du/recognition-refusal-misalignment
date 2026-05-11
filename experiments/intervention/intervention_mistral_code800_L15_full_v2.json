@@ -1,0 +1,591 @@
+{
+  "model": "mistral",
+  "dataset": "code800",
+  "layer": 15,
+  "reps_type": "last_token",
+  "n_samples_per_class": 50,
+  "proj_std": 0.17100790143013,
+  "mu_norm": 0.22678937017917633,
+  "alphas": [
+    0.0,
+    5.0,
+    10.0,
+    20.0,
+    40.0
+  ],
+  "verification_protocol": "llm_assisted_human_adjudicated_invalidity_aware_v2",
+  "n_uncertain_excluded_total": 0,
+  "n_clean_degenerate_excluded_total": 10,
+  "candidate_labels_source": "experiments/intervention/labels/mistral_code800_L15_full_candidate.tsv",
+  "adjudicated_source": "experiments/intervention/adjudicated/mistral_code800_L15_full_adjudicated.tsv",
+  "samples_tsv_source": "experiments/intervention/samples_mistral_code800_L15.tsv",
+  "merge_stats": {
+    "audit_overrides_applied": 415,
+    "non_audit_passthrough": 485,
+    "total_generations_aggregated": 900,
+    "candidate_labels_row_count": 900,
+    "per_field_overrides": {
+      "invalidity_aware": 415,
+      "refusal_only": 415,
+      "degenerate": 415
+    }
+  },
+  "grid_coverage": {
+    "universe_size": 900,
+    "candidate_keys": 900,
+    "missing_in_candidates": 0,
+    "extra_in_candidates": 0
+  },
+  "results": [
+    {
+      "condition": "U→A (remove signal)",
+      "alpha_mult": 0.0,
+      "alpha_val": -0.0,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 0,
+      "n_samples_effective": 50,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.0,
+      "degenerate_rate_random": 0.0,
+      "n_uncertain_excluded": 0
+    },
+    {
+      "condition": "U→A (remove signal)",
+      "alpha_mult": 5.0,
+      "alpha_val": -0.8550394773483276,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 0,
+      "n_samples_effective": 50,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 27,
+          "flip": 8,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.2962962962962963
+        },
+        "random": {
+          "n_clean_gate": 27,
+          "flip": 6,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.2222222222222222
+        },
+        "delta_gated": 0.07407407407407407
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.2962962962962963,
+        "random": 0.2222222222222222,
+        "delta": 0.07407407407407407
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.0,
+      "degenerate_rate_random": 0.0,
+      "n_uncertain_excluded": 0
+    },
+    {
+      "condition": "U→A (remove signal)",
+      "alpha_mult": 10.0,
+      "alpha_val": -1.7100789546966553,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 0,
+      "n_samples_effective": 50,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 27,
+          "flip": 15,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.5555555555555556
+        },
+        "random": {
+          "n_clean_gate": 27,
+          "flip": 8,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.2962962962962963
+        },
+        "delta_gated": 0.2592592592592593
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.5555555555555556,
+        "random": 0.2962962962962963,
+        "delta": 0.2592592592592593
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.0,
+      "degenerate_rate_random": 0.0,
+      "n_uncertain_excluded": 0
+    },
+    {
+      "condition": "U→A (remove signal)",
+      "alpha_mult": 20.0,
+      "alpha_val": -3.4201579093933105,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 0,
+      "n_samples_effective": 50,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 27,
+          "flip": 21,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.7777777777777778
+        },
+        "random": {
+          "n_clean_gate": 27,
+          "flip": 9,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.3333333333333333
+        },
+        "delta_gated": 0.4444444444444445
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.7777777777777778,
+        "random": 0.3333333333333333,
+        "delta": 0.4444444444444445
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.0,
+      "degenerate_rate_random": 0.0,
+      "n_uncertain_excluded": 0
+    },
+    {
+      "condition": "U→A (remove signal)",
+      "alpha_mult": 40.0,
+      "alpha_val": -6.840315818786621,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 0,
+      "n_samples_effective": 50,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 27,
+          "flip": 26,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 1,
+          "rate_gated": 0.9629629629629629
+        },
+        "random": {
+          "n_clean_gate": 27,
+          "flip": 14,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.5185185185185185
+        },
+        "delta_gated": 0.4444444444444444
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.9629629629629629,
+        "random": 0.5185185185185185,
+        "delta": 0.4444444444444444
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.04,
+      "degenerate_rate_random": 0.0,
+      "n_uncertain_excluded": 0
+    },
+    {
+      "condition": "A→U (inject signal)",
+      "alpha_mult": 0.0,
+      "alpha_val": 0.0,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 2,
+      "n_samples_effective": 48,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 0,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.0,
+      "degenerate_rate_random": 0.0,
+      "n_uncertain_excluded": 0
+    },
+    {
+      "condition": "A→U (inject signal)",
+      "alpha_mult": 5.0,
+      "alpha_val": 0.8550394773483276,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 2,
+      "n_samples_effective": 48,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 48,
+          "flip": 1,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.020833333333333332
+        },
+        "random": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.020833333333333332
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.020833333333333332,
+        "random": 0.0,
+        "delta": 0.020833333333333332
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.0,
+      "degenerate_rate_random": 0.0,
+      "n_uncertain_excluded": 0
+    },
+    {
+      "condition": "A→U (inject signal)",
+      "alpha_mult": 10.0,
+      "alpha_val": 1.7100789546966553,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 2,
+      "n_samples_effective": 48,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 48,
+          "flip": 1,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.020833333333333332
+        },
+        "random": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.020833333333333332
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.020833333333333332,
+        "random": 0.0,
+        "delta": 0.020833333333333332
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.0,
+      "degenerate_rate_random": 0.0,
+      "n_uncertain_excluded": 0
+    },
+    {
+      "condition": "A→U (inject signal)",
+      "alpha_mult": 20.0,
+      "alpha_val": 3.4201579093933105,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 2,
+      "n_samples_effective": 48,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 48,
+          "flip": 6,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 1,
+          "rate_gated": 0.125
+        },
+        "random": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.125
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 1,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.125,
+        "random": 0.0,
+        "delta": 0.125
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.020833333333333332,
+      "degenerate_rate_random": 0.0,
+      "n_uncertain_excluded": 0
+    },
+    {
+      "condition": "A→U (inject signal)",
+      "alpha_mult": 40.0,
+      "alpha_val": 6.840315818786621,
+      "n_samples": 50,
+      "n_clean_degenerate_excluded": 2,
+      "n_samples_effective": 48,
+      "criterion_invalidity_aware": {
+        "signal": {
+          "n_clean_gate": 48,
+          "flip": 17,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.3541666666666667
+        },
+        "random": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 3,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.3541666666666667
+      },
+      "criterion_refusal_only": {
+        "signal": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 0,
+          "rate_gated": 0.0
+        },
+        "random": {
+          "n_clean_gate": 48,
+          "flip": 0,
+          "n_excluded_uncertain": 0,
+          "n_branch_degenerate_in_gate": 3,
+          "rate_gated": 0.0
+        },
+        "delta_gated": 0.0
+      },
+      "gated_flip_rate_invalidity_aware": {
+        "signal": 0.3541666666666667,
+        "random": 0.0,
+        "delta": 0.3541666666666667
+      },
+      "gated_flip_rate_refusal_only": {
+        "signal": 0.0,
+        "random": 0.0,
+        "delta": 0.0
+      },
+      "degenerate_rate_signal": 0.0,
+      "degenerate_rate_random": 0.0625,
+      "n_uncertain_excluded": 0
+    }
+  ]
+}

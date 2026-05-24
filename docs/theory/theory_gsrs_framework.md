@@ -213,15 +213,15 @@ This explains the dataset-dependent performance gap.
 
 ---
 
-## 6. What This Framework Buys for EMNLP
+## 6. Significance
 
 1. **Unification narrative**: "We propose GSRS, a family of subspace residual scores parameterized by (P, w, φ). We show that prior methods (Mahalanobis, cosine distance, linear probes) are special cases, and identify the null-space projection as the dominant factor (+22pp)."
 
 2. **Principled ablation**: The three-component decomposition gives a clean ablation story, not ad-hoc metric comparisons.
 
-3. **Design space**: GSRS defines a design space. We explored it systematically and found CosNSRT (P=PCA, w=d̂, φ=cos) optimal. This is how KLE positioned itself — "we define a general family, show SE is a special case, and find the optimal instance."
+3. **Design space**: GSRS defines a design space. We explored it systematically and found CosNSRT (P=PCA, w=d̂, φ=cos) optimal. This parallels KLE: "define a general family, show SE is a special case, and find the optimal instance."
 
-4. **Against Lavi et al.**: They fix P=I and innovate on w (causal steering). We fix w=d̂_means and innovate on P (null-space projection). Same GSRS framework, orthogonal contributions. Can even cite: "Lavi et al. (2026) can be viewed as GSRS(P=I, w=w_causal, φ=dot)."
+4. **Relation to causal-steering methods**: Such methods fix P=I and innovate on w (causal steering). We fix w=d̂_means and innovate on P (null-space projection). Same GSRS framework, orthogonal contributions. This can be expressed as: causal steering can be viewed as GSRS(P=I, w=w_causal, φ=dot).
 
 ---
 

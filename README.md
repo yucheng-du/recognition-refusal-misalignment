@@ -1,6 +1,6 @@
-# The Model Knows but Doesn't Act — Anonymous Submission
+# Recognition–Refusal Misalignment in LLMs — Anonymous Submission
 
-This repository accompanies the EMNLP 2026 submission *"The Model Knows but Doesn't Act: Why LLMs Answer Structurally Impossible Questions."* It contains the matched-pair datasets, the analysis / extraction / steering pipeline, the figure-regeneration scripts, and the curated experiment artifacts needed to reproduce 5 of 6 figures end-to-end. The paper PDF itself is on the OpenReview submission page; the paper source (`main.tex`, `references.bib`, etc.) is not redistributed in this code/data release.
+This repository accompanies the EMNLP 2026 submission *"Recognition–Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions."* It contains the matched-pair datasets, the analysis / extraction / steering pipeline, the figure-regeneration scripts, and the curated experiment artifacts needed to reproduce the shipped figure assets. The paper PDF itself is on the OpenReview submission page; the paper source (`main.tex`, `references.bib`, etc.) is not redistributed in this code/data release.
 
 This release is anonymized for double-blind review. A de-anonymized version will be released on acceptance.
 
@@ -11,9 +11,9 @@ This release is anonymized for double-blind review. A de-anonymized version will
 Across an 11-model main grid spanning 1.7B–70B and two structural-impossibility domains (math, code):
 
 1. **The model knows.** A one-dimensional null-space MeanDiff direction $d_{\mathrm{imp}}$ separates answerable (A) from unanswerable (U) prompts with mean AUC **0.939** across 22 cells.
-2. **But it doesn't act.** $d_{\mathrm{imp}}$ is near-orthogonal to the safety refusal direction $d_{\mathrm{ref}}$ (Arditi et al., 2024): mean $\cos$ **0.087**, range $[0.020, 0.130]$, 20/22 behavior-verified.
+2. **But it doesn't act.** $d_{\mathrm{imp}}$ is near-orthogonal to the canonical safety-refusal direction $d_{\mathrm{ref,safety}}$ (Arditi et al., 2024): mean $\cos$ **0.087**, range $[0.020, 0.130]$. It is only partially aligned with an in-domain behavior-defined invalidity-aware direction ($\cos \approx 0.40$).
 3. **The misalignment largely predates RLHF.** Across 6 base/instruct pairs on math800, $\Delta\cos$ is $[-0.008, +0.110]$ (mean $+0.037$) — instruction tuning modulates the angle in a low-cosine regime rather than producing it.
-4. **The direction is causal.** Generation-time activation steering on $d_{\mathrm{imp}}$ flips refusal bidirectionally on the 4-anchor intervention grid (Mistral-7B-Instruct, Gemma-3-4B-it, Qwen3-14B, Qwen3-8B); gated flip rates +33 to +52 pp.
+4. **The direction is causal.** Generation-time activation steering on $d_{\mathrm{imp}}$ changes invalidity-aware behavior on the 4-anchor math/code intervention grid; gated $\Delta$G improves by **+33 to +52 pp**, and a 16-model steering sweep confirms the math/code footprint.
 
 The full paper PDF is on the OpenReview submission page (this anonymous code/data release is paired with that submission and does not redistribute the paper source).
 
@@ -25,12 +25,13 @@ The full paper PDF is on the OpenReview submission page (this anonymous code/dat
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. Regenerate the 5-of-6 figures that are end-to-end reproducible from this release
+# 2. Regenerate the standalone TikZ teaser and the matplotlib figures
+cd paper/figures && pdflatex -interaction=nonstopmode fig1_teaser.tex && cd ../..
 python paper/generate_fig5_v2.py
 python paper/generate_figures.py --figs fig2 fig3 fig4 fig6
 
-# 3. Rebuild the paper PDF (requires a TeX Live installation)
-cd paper && pdflatex main && bibtex main && pdflatex main && pdflatex main
+# 3. The manuscript PDF/source is not redistributed here
+#    Use the OpenReview submission PDF for the paper text.
 ```
 
 A reviewer-only smoke test takes < 5 minutes.
@@ -41,16 +42,18 @@ For the heavier pipeline (extracting hidden states from a HuggingFace model, fit
 
 ## Figure reproducibility
 
-| Figure | `\includegraphics` target | Regen status | Command + inputs |
+| Paper placement | `\includegraphics` target | Regen status | Command + inputs |
 |---|---|---|---|
-| Fig 1 (conceptual) | `figures/fig1_conceptual_compact.pdf` | **No** — requires unshipped `experiments/signals/*.npy` (≈150 GB raw activations) | shipped PDF only; the regen script prints a clear skip message |
-| Fig 2 (detection heatmap) | `figures/fig2_detection_heatmap.pdf` | **Yes** | `python paper/generate_figures.py --figs fig2` reads `experiments/main_grid_facts_v2.json` |
-| Fig 3 (orthogonality) | `figures/fig3_orthogonality.pdf` | **Yes** | `python paper/generate_figures.py --figs fig3` reads `experiments/main_grid_facts_v2.json` + the 12-file BASE_PAIRS `direction_comparison_*.json` set |
-| Fig 4 (GSRS ablation) | `figures/fig4_gsrs_ablation.pdf` | **Yes** | `python paper/generate_figures.py --figs fig4` — frozen constants in script, no file I/O |
-| Fig 5 (causal control) | `figures/fig5_causal_v2_compact.pdf` | **Yes** | `python paper/generate_fig5_v2.py` reads the 12 anchor `experiments/intervention/intervention_*_full_v2.json` files |
-| Fig 6 (null-space ablation) | `figures/fig6_nullspace_ablation.pdf` | **Yes** | `python paper/generate_figures.py --figs fig6` reads `experiments/ablation_nullpc_results_11model.json` |
+| Fig 1 (page-1 teaser) | `figures/fig1_teaser.pdf` | **Yes** | `cd paper/figures && pdflatex -interaction=nonstopmode fig1_teaser.tex` |
+| Fig 2 (orthogonality) | `figures/fig3_orthogonality.pdf` | **Yes** | `python paper/generate_figures.py --figs fig3` reads `experiments/main_grid_facts_v2.json` + the 12-file BASE_PAIRS `direction_comparison_*.json` set |
+| Fig 3 (causal control) | `figures/fig5_causal_v2_compact.pdf` | **Yes** | `python paper/generate_fig5_v2.py` reads the 12 anchor `experiments/intervention/intervention_*_full_v2.json` files |
+| Appendix detection heatmap | `figures/fig2_detection_heatmap.pdf` | **Yes** | `python paper/generate_figures.py --figs fig2` reads `experiments/main_grid_facts_v2.json` |
+| Appendix null-space ablation | `figures/fig6_nullspace_ablation.pdf` | **Yes** | `python paper/generate_figures.py --figs fig6` reads `experiments/ablation_nullpc_results_11model.json` |
+| Appendix GSRS ablation | `figures/fig4_gsrs_ablation.pdf` | **Yes** | `python paper/generate_figures.py --figs fig4` — frozen constants in script, no file I/O |
 
-Fig 1's raw inputs are the 150 GB activation-tensor tree; the rendered PDF in `paper/figures/` is the canonical Fig 1 used in the OpenReview paper. Reviewers running `python paper/generate_figures.py --figs fig1` will see a clear skip message rather than a crash.
+Fig 1 is a standalone TikZ overview figure and does not require the raw activation-tensor tree. The raw 151 GB `experiments/signals/` tree is still needed only if reviewers want to recompute representations from scratch rather than use the shipped aggregate artifacts.
+
+`experiments/d_struct_behav_matrix.json` is a small derived aggregate for the behavior-defined invalidity-aware direction reported in the paper. Its local builder consumes the omitted raw `experiments/signals/*.npy` activations plus post-verification intervention labels; the JSON is therefore shipped as the reproducibility target for this comparison, rather than as a one-command-from-scratch regeneration step in the lightweight anonymous release.
 
 ---
 
@@ -58,9 +61,9 @@ Fig 1's raw inputs are the 150 GB activation-tensor tree; the rendered PDF in `p
 
 | File | Size | Source | License |
 |---|---|---|---|
-| `data/math800.jsonl` | 260 KB | Self-built (12–15 categories × ~55 matched A/U pairs) | this repo's LICENSE |
-| `data/code800.jsonl` | 263 KB | Self-built (8 categories × ~100 matched A/U pairs) | this repo's LICENSE |
-| `data/fact800.jsonl` | 1.35 MB | Derived from SQuAD 2.0 validation split (seed=42, official `is_impossible` labels) | SQuAD 2.0 (CC-BY-SA-4.0) — see `data/LICENSE-SQUAD.md` |
+| `data/math800.jsonl` | 260 KB | Self-built frozen set (16 categories × 50 matched A/U pairs; LLM-drafted, rule/manually verified) | this repo's LICENSE |
+| `data/code800.jsonl` | 263 KB | Self-built frozen set (8 categories × 100 matched A/U pairs; LLM-drafted, rule/manually verified) | this repo's LICENSE |
+| `data/fact800.jsonl` | 1.35 MB | Derived from SQuAD 2.0 train split (seed=42, official `is_impossible` labels) | SQuAD 2.0 (CC-BY-SA-4.0) — see `data/LICENSE-SQUAD.md` |
 | `data/falseqa.jsonl` | NOT SHIPPED | Reconstruct via `python src/data/fetch_falseqa.py && python src/data/clean_falseqa.py` (fetches from upstream `github.com/thunlp/FalseQA`, then applies cleanup). Upstream has no explicit LICENSE file at time of release; see `data/LICENSE-FALSEQA.md` for details. | upstream FalseQA — see `data/LICENSE-FALSEQA.md` |
 | `data/abstentionbench_gsm8k.jsonl` | 841 KB | GSM8K subset of AbstentionBench; see `src/data/clean_abstentionbench_gsm8k.py` | upstream AbstentionBench — see `data/LICENSE-ABSTENTIONBENCH.md` |
 | `data/difficulty_control_gsm8k.jsonl` | 194 KB | Difficulty-controlled split derived from GSM8K (Cobbe et al., 2021); see `scripts/prepare_difficulty_control.py` | upstream GSM8K — see `data/LICENSE-GSM8K.md` |
@@ -97,9 +100,9 @@ Per-model peak layers are pre-resolved and registered in the relevant scripts; s
 ├── paper/                                    (figure pipeline only — paper PDF is on OpenReview)
 │   ├── README.md                             (what this directory ships and what it doesn't)
 │   ├── _figure_style.py                      (shared matplotlib style helpers)
-│   ├── generate_figures.py                   (Figs 2, 3, 4, 6 + Fig 1 skip)
+│   ├── generate_figures.py                   (matplotlib figures: detection, orthogonality, GSRS, null-space)
 │   ├── generate_fig5_v2.py                   (Fig 5 end-to-end)
-│   └── figures/                              (6 rendered figure PDFs used in the OpenReview paper)
+│   └── figures/                              (rendered figure PDFs + Fig 1 TikZ source fig1_teaser.tex)
 ├── scripts/                                  (CLI entry points: extraction, detection, intervention, steering, evaluation)
 ├── src/
 │   ├── baselines/                            (semantic-entropy baseline)
@@ -110,6 +113,7 @@ Per-model peak layers are pre-resolved and registered in the relevant scripts; s
 └── experiments/                              (curated subset; aggregate JSONs + the 4-anchor intervention factsheet)
     ├── main_grid_facts_v2.json
     ├── ablation_nullpc_results_11model.json
+    ├── d_struct_behav_matrix.json           (behavior-defined invalidity-aware direction matrix)
     ├── direction_comparison_*.json           (12 files: 6 instruct + 6 base, for Fig 3 base/instruct panel)
     ├── intervention/
     │   ├── v2_final_4anchor_factsheet.md
@@ -127,6 +131,8 @@ python scripts/run_extract_minimal.py --model <hf_id> --prompts data/math800.jso
 
 This populates the same `experiments/signals/` layout the analysis scripts read.
 
+Some post-adjudication aggregates, including `experiments/d_struct_behav_matrix.json`, additionally require verified intervention-label TSVs. These are represented in the release by the frozen aggregate JSONs used by the paper figures/tables; full regeneration from raw activations follows the same extraction and verification pipeline but is outside the lightweight smoke-test path.
+
 ---
 
 ## Citation
@@ -134,7 +140,7 @@ This populates the same `experiments/signals/` layout the analysis scripts read.
 ```bibtex
 @misc{anon2026,
   author = {Anonymous},
-  title  = {The Model Knows but Doesn't Act: Why LLMs Answer Structurally Impossible Questions},
+  title  = {Recognition--Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions},
   year   = {2026},
   note   = {EMNLP 2026 submission, under review}
 }

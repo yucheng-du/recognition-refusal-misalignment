@@ -126,7 +126,7 @@ Bidirectional math control is the exception, not the rule:
 - **Qwen3-14B math fails both directions** under v2: U→A +21.4pp
   collapse-driven (deg_sig=60.4% at α=20), A→U +7.0pp at α=10.
   Versus v1 (U→A +75.0pp legacy keyword, A→U +31.9pp), this is the
-  largest drop in the grid (see §4) and is dominated by FIX 3 option-C
+  largest drop in the grid (see §4) and is dominated by the degenerate-output guard
   pruning of degenerate signal flips.
 
 ### 3.3 Fact domain — small-N gate problem + structural baseline absence
@@ -184,7 +184,7 @@ Read: signal removal/injection moves invalidity-aware abstention but
 does not move generic refusal-vocabulary abstention. RO is a tight
 specificity control, not a competing mechanism that v2 pulled out.
 
-### 3.5 Degenerate handling — what FIX 3 option-C catches
+### 3.5 Degenerate handling — what the degenerate-output guard catches
 
 V2 forces flip=False for branches whose generation collapses to a
 degenerate (looping / EOS-only / pure-punctuation) trajectory and
@@ -208,7 +208,7 @@ high at the best v1 α. Per-cell maxima of degenerate-rate-signal:
 | qwen3_8b / fact / L21 | 32.0% | 8.0% |
 
 Cells where the v1→v2 drop is concentrated at high α and the v2 best
-α is lower than v1's best α generally trace to FIX 3 option-C catching
+α is lower than v1's best α generally trace to the degenerate-output guard catching
 high-α collapse: Mistral fact A→U (v1 α=40 best, v2 α=40 still best
 but ΔG drops 30→4pp under deg_sig=66%), Qwen3-14B math U→A
 (v1 +75pp at α=20 → v2 +21pp at α=20 under deg_sig=60.4%), and
@@ -245,7 +245,7 @@ maximize `rate_signal_gated − rate_random_gated`; v2 chooses α to
 maximize IA `delta_gated`. Cause set: GB = gate broadening (legacy
 keyword missed invalidity vocab); MO = mixed-output FP catch (concrete
 answer + appended caveat now correctly flagged not-abstention); DEG =
-degenerate punishment (FIX 3 option-C); SN = small-N reveal (legacy
+degenerate punishment (the degenerate-output guard); SN = small-N reveal (legacy
 gate too small/large to be reliable); LX = lexical FP catch in clean
 baseline (legacy keyword over-counted invalidity in clean baseline).
 
@@ -298,8 +298,8 @@ handling, and the audit pass.
 |---|---|---|
 | Rubric | Single keyword/lexical match for "abstention" (e.g. "undefined", "I cannot", "no answer"). | Invalidity-aware rubric with domain-specific structural categories (math: div-zero / sqrt-neg / log-neg etc.; code: raises X; fact: epistemic unanswerability). Two criteria reported in parallel: IA (full structural rubric) and RO (refusal-only sub-criterion using "I cannot / I don't know"). |
 | Mixed output | Counted as abstention if any abstention keyword present. | Stage B Rule 3: concrete answer with appended invalidity caveat → IA = no. Caught the systematic FP class (≈27% of provisionally-kept candidate flips on Mistral code). |
-| Degenerate generations | Silently included in flip and gate counts. | FIX 3 option-C: degenerate branches (looping / EOS-only / pure-punctuation) forced flip=False; clean degenerate baselines excluded from gate denominator. |
-| Audit | LLM-assisted candidate + human override. | LLM-assisted candidate + Stage-B in-memory rubric fill + 10% self-check + pass-2 second-read on review_required.md (catches both under-apply and over-apply of Rule 3). |
+| Degenerate generations | Silently included in flip and gate counts. | The degenerate-output guard: degenerate branches (looping / EOS-only / pure-punctuation) forced flip=False; clean degenerate baselines excluded from gate denominator. |
+| Audit | LLM-assisted candidate + human override. | LLM-assisted candidate + Stage-B in-memory rubric fill + 10% self-check + pass-2 second-read on the flagged subset (catches both under-apply and over-apply of Rule 3). |
 | Empty-gate handling | gateN=0 silently rendered as ΔG = 0. | gateN=0 rendered as N/A (and surfaced as such in §2 / §6). |
 | Reported metrics | Single ΔG per (cell, direction, α). | IA ΔG and RO ΔG reported separately; degenerate-signal and degenerate-random rates exposed per row. |
 

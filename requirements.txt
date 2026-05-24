@@ -18,8 +18,3 @@ tqdm>=4.65
 
 # HuggingFace datasets (used by src/data/clean_*.py and src/data/prepare_squad2.py).
 datasets>=2.14
-
-# Optional — only required if you re-run src/data/{generate_math800,generate_code800}.py
-# (these scripts call an LLM API to synthesize new prompt pairs; the shipped
-# math800.jsonl / code800.jsonl are pre-built and do NOT require this dep).
-# anthropic>=0.34

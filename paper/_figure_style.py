@@ -95,6 +95,9 @@ def apply() -> None:
             # Fonts
             "font.family": "serif",
             "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
+            # Match figure math to the Computer Modern math used by the paper
+            # body without requiring a TeX-backed matplotlib install.
+            "mathtext.fontset": "cm",
             "font.size": SIZE_AXIS,
             "axes.labelsize": SIZE_AXIS,
             "axes.titlesize": SIZE_TITLE,

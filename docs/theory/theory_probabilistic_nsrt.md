@@ -198,7 +198,7 @@ where w_k are weights learned from the A/U training data (or set uniformly).
 
 From Exp2 data, AUC varies 3-7pp across k values — there IS scale-dependent information. Multi-scale combination should capture what single-k misses.
 
-## 9. What This Buys for EMNLP
+## 9. Significance
 
 1. **Theoretical foundation**: NSRT is not an ad-hoc geometric score — it's the Bayes-optimal classifier under well-specified assumptions. This elevates it from "technique" to "principled method."
 
@@ -206,6 +206,6 @@ From Exp2 data, AUC varies 3-7pp across k values — there IS scale-dependent in
 
 3. **Derives new metrics**: ANSRT (adaptive) and MS-NSRT (multi-scale) fall out naturally from the theory. They're not ad-hoc — they solve specific limitations identified by the probabilistic analysis.
 
-4. **Against reviewers**: "Why not just use Fisher LDA?" → Because high-D covariance estimation is ill-conditioned; NSRT's isotropic assumption provides implicit regularization (Bickel & Levina, 2004). "Why not Mahalanobis?" → Because it lacks directional information (+10.9pp from d̂). These are theoretically grounded answers.
+4. **Relation to classical alternatives**: "Why not just use Fisher LDA?" → Because high-D covariance estimation is ill-conditioned; NSRT's isotropic assumption provides implicit regularization (Bickel & Levina, 2004). "Why not Mahalanobis?" → Because it lacks directional information (+10.9pp from d̂). These are theoretically grounded answers.
 
-5. **Connection to broader literature**: Links to high-dimensional discriminant analysis, information geometry, outlier detection theory. Gives reviewers familiar anchors.
+5. **Connection to broader literature**: Links to high-dimensional discriminant analysis, information geometry, outlier detection theory. Connects to familiar anchors in the established literature.

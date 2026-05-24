@@ -25,6 +25,8 @@ CLI entry points for the extraction, detection, intervention, steering, and eval
 | `aggregate_steering_v2det.py` | Aggregates the 48-cell × 16-model steering breadth sweep. |
 | `recompute_gated_dG_from_labels.py` | Recomputes invalidity-aware gated $\Delta$G from human verification labels. |
 
+Note: `experiments/d_struct_behav_matrix.json` is shipped as a derived post-adjudication aggregate. Its local builder depends on the omitted raw `experiments/signals/*.npy` activation tree and verified intervention-label TSVs, so it is not listed as a runnable lightweight-release script here.
+
 ## Intervention + steering
 
 | Script | Role |

@@ -1,0 +1,471 @@
+{
+  "schema_version": "1.0",
+  "audit_date": "2026-05-18",
+  "bootstrap_n": 1000,
+  "sanity_tolerance": 0.015,
+  "loo_auc_threshold": 0.65,
+  "self_cos_threshold": 0.8,
+  "cells": [
+    {
+      "model": "mistral",
+      "dataset": "math800",
+      "layer": 15,
+      "n_yes": 29,
+      "n_no": 21,
+      "n_degenerate": 0,
+      "n_effective": 50,
+      "unique_U_count": 50,
+      "label_source": "human_adjudicated",
+      "cos_imp_struct_anull": 0.46428412199020386,
+      "ci_imp_struct_anull": [
+        0.19566852673888208,
+        0.5223338305950165
+      ],
+      "cos_imp_ref_anull": 0.13035710155963898,
+      "cos_struct_ref_anull": 0.07867889106273651,
+      "ci_struct_ref_anull": [
+        0.02320281071588397,
+        0.09672421179711818
+      ],
+      "loo_auc_anull": 0.8013136288998358,
+      "boot_self_cos_median_anull": 0.8473292589187622,
+      "boot_self_cos_iqr_anull": [
+        0.8090172857046127,
+        0.878962054848671
+      ],
+      "direction_exploratory_anull": false,
+      "cos_imp_struct_full": 0.5619218349456787,
+      "ci_imp_struct_full": [
+        0.3500187136232853,
+        0.5837405875325203
+      ],
+      "cos_imp_ref_full": 0.2720494270324707,
+      "cos_struct_ref_full": 0.18051914870738983,
+      "ci_struct_ref_full": [
+        0.0913375660777092,
+        0.20681463703513145
+      ],
+      "loo_auc_full": 0.8160919540229885,
+      "boot_self_cos_median_full": 0.8670486509799957,
+      "boot_self_cos_iqr_full": [
+        0.8358332216739655,
+        0.8959826081991196
+      ],
+      "direction_exploratory_full": false,
+      "sanity_cos_same_A_null_recomputed": 0.13035710155963898,
+      "sanity_cos_same_A_null_expected": 0.13129273056983948,
+      "sanity_cos_same_A_null_delta": 0.0009356290102005005,
+      "sanity_cos_full_full_recomputed": 0.2720494270324707,
+      "sanity_cos_full_full_expected": 0.2720494270324707,
+      "sanity_cos_full_full_delta": 0.0,
+      "sanity_source_json": "experiments/direction_comparison_mistral.json"
+    },
+    {
+      "model": "mistral",
+      "dataset": "code800",
+      "layer": 15,
+      "n_yes": 27,
+      "n_no": 23,
+      "n_degenerate": 0,
+      "n_effective": 50,
+      "unique_U_count": 50,
+      "label_source": "human_adjudicated",
+      "cos_imp_struct_anull": 0.1633799970149994,
+      "ci_imp_struct_anull": [
+        -0.04176032915711403,
+        0.3146547630429268
+      ],
+      "cos_imp_ref_anull": 0.09773892909288406,
+      "cos_struct_ref_anull": 0.01275322213768959,
+      "ci_struct_ref_anull": [
+        -0.03449698789045215,
+        0.0535863253287971
+      ],
+      "loo_auc_anull": 0.6618357487922706,
+      "boot_self_cos_median_anull": 0.7780837416648865,
+      "boot_self_cos_iqr_anull": [
+        0.7313335835933685,
+        0.8102951198816299
+      ],
+      "direction_exploratory_anull": true,
+      "cos_imp_struct_full": 0.31985440850257874,
+      "ci_imp_struct_full": [
+        0.03568948875181378,
+        0.4305090405046939
+      ],
+      "cos_imp_ref_full": 0.2446238249540329,
+      "cos_struct_ref_full": 0.1151905357837677,
+      "ci_struct_ref_full": [
+        -0.010869580623693764,
+        0.17821784019470213
+      ],
+      "loo_auc_full": 0.6151368760064412,
+      "boot_self_cos_median_full": 0.7999481856822968,
+      "boot_self_cos_iqr_full": [
+        0.7353668063879013,
+        0.8479115813970566
+      ],
+      "direction_exploratory_full": true,
+      "sanity_cos_same_A_null_recomputed": 0.09773892909288406,
+      "sanity_cos_same_A_null_expected": 0.09930355846881866,
+      "sanity_cos_same_A_null_delta": 0.0015646293759346008,
+      "sanity_cos_full_full_recomputed": 0.2446238249540329,
+      "sanity_cos_full_full_expected": 0.2446238249540329,
+      "sanity_cos_full_full_delta": 0.0,
+      "sanity_source_json": "experiments/direction_comparison_mistral_code800_L15.json"
+    },
+    {
+      "model": "gemma3_4b",
+      "dataset": "math800",
+      "layer": 16,
+      "n_yes": 21,
+      "n_no": 29,
+      "n_degenerate": 0,
+      "n_effective": 50,
+      "unique_U_count": 50,
+      "label_source": "human_adjudicated",
+      "cos_imp_struct_anull": 0.48566123843193054,
+      "ci_imp_struct_anull": [
+        0.2695927023887634,
+        0.5236037209630012
+      ],
+      "cos_imp_ref_anull": 0.1525978446006775,
+      "cos_struct_ref_anull": 0.12419268488883972,
+      "ci_struct_ref_anull": [
+        0.04854574874043465,
+        0.14858786985278127
+      ],
+      "loo_auc_anull": 0.8407224958949097,
+      "boot_self_cos_median_anull": 0.8543776869773865,
+      "boot_self_cos_iqr_anull": [
+        0.8141272068023682,
+        0.8812784254550934
+      ],
+      "direction_exploratory_anull": false,
+      "cos_imp_struct_full": -0.22935114800930023,
+      "ci_imp_struct_full": [
+        -0.503118821978569,
+        0.6025183886289595
+      ],
+      "cos_imp_ref_full": 0.5311520099639893,
+      "cos_struct_ref_full": -0.2444184124469757,
+      "ci_struct_ref_full": [
+        -0.4039075843989849,
+        0.33299173712730384
+      ],
+      "loo_auc_full": 0.7257799671592775,
+      "boot_self_cos_median_full": 0.9379708170890808,
+      "boot_self_cos_iqr_full": [
+        0.8896501958370209,
+        0.9567769169807434
+      ],
+      "direction_exploratory_full": false,
+      "sanity_cos_same_A_null_recomputed": 0.1525978446006775,
+      "sanity_cos_same_A_null_expected": 0.15407484769821167,
+      "sanity_cos_same_A_null_delta": 0.0014770030975341797,
+      "sanity_cos_full_full_recomputed": 0.5311520099639893,
+      "sanity_cos_full_full_expected": 0.5311519503593445,
+      "sanity_cos_full_full_delta": 5.960464477539063e-08,
+      "sanity_source_json": "experiments/direction_comparison_gemma3_4b.json"
+    },
+    {
+      "model": "gemma3_4b",
+      "dataset": "code800",
+      "layer": 15,
+      "n_yes": 15,
+      "n_no": 34,
+      "n_degenerate": 1,
+      "n_effective": 49,
+      "unique_U_count": 50,
+      "label_source": "human_adjudicated",
+      "cos_imp_struct_anull": 0.4869609475135803,
+      "ci_imp_struct_anull": [
+        0.2637730538845062,
+        0.5293618947267532
+      ],
+      "cos_imp_ref_anull": 0.15194155275821686,
+      "cos_struct_ref_anull": 0.08952469378709793,
+      "ci_struct_ref_anull": [
+        0.03842708254233003,
+        0.1020984500646591
+      ],
+      "loo_auc_anull": 0.9137254901960784,
+      "boot_self_cos_median_anull": 0.8528580665588379,
+      "boot_self_cos_iqr_anull": [
+        0.8238128572702408,
+        0.8759519159793854
+      ],
+      "direction_exploratory_anull": false,
+      "cos_imp_struct_full": 0.9318527579307556,
+      "ci_imp_struct_full": [
+        0.7721499398350715,
+        0.9370320752263069
+      ],
+      "cos_imp_ref_full": 0.7810836434364319,
+      "cos_struct_ref_full": 0.7804081439971924,
+      "ci_struct_ref_full": [
+        0.6304517686367035,
+        0.7906963124871254
+      ],
+      "loo_auc_full": 0.7784313725490196,
+      "boot_self_cos_median_full": 0.9868389666080475,
+      "boot_self_cos_iqr_full": [
+        0.9790006577968597,
+        0.9907212108373642
+      ],
+      "direction_exploratory_full": false,
+      "sanity_cos_same_A_null_recomputed": 0.15194155275821686,
+      "sanity_cos_same_A_null_expected": 0.15281875431537628,
+      "sanity_cos_same_A_null_delta": 0.0008772015571594238,
+      "sanity_cos_full_full_recomputed": 0.7810836434364319,
+      "sanity_cos_full_full_expected": 0.7810835242271423,
+      "sanity_cos_full_full_delta": 1.1920928955078125e-07,
+      "sanity_source_json": "experiments/direction_comparison_gemma3_4b_code800_L15.json"
+    },
+    {
+      "model": "qwen3_14b",
+      "dataset": "math800",
+      "layer": 25,
+      "n_yes": 28,
+      "n_no": 20,
+      "n_degenerate": 2,
+      "n_effective": 48,
+      "unique_U_count": 50,
+      "label_source": "human_adjudicated",
+      "cos_imp_struct_anull": 0.21371835470199585,
+      "ci_imp_struct_anull": [
+        -0.008701089117676019,
+        0.37818846553564067
+      ],
+      "cos_imp_ref_anull": 0.09132760763168335,
+      "cos_struct_ref_anull": 0.059982553124427795,
+      "ci_struct_ref_anull": [
+        0.009104320965707303,
+        0.089903293736279
+      ],
+      "loo_auc_anull": 0.8446428571428571,
+      "boot_self_cos_median_anull": 0.8216580748558044,
+      "boot_self_cos_iqr_anull": [
+        0.7830808311700821,
+        0.8584258407354355
+      ],
+      "direction_exploratory_anull": false,
+      "cos_imp_struct_full": 0.2798852324485779,
+      "ci_imp_struct_full": [
+        0.07439657766371965,
+        0.45795460119843473
+      ],
+      "cos_imp_ref_full": 0.2510502338409424,
+      "cos_struct_ref_full": 0.13816431164741516,
+      "ci_struct_ref_full": [
+        0.0594463512301445,
+        0.1934520799666643
+      ],
+      "loo_auc_full": 0.8642857142857143,
+      "boot_self_cos_median_full": 0.8763477504253387,
+      "boot_self_cos_iqr_full": [
+        0.8419620096683502,
+        0.9049494862556458
+      ],
+      "direction_exploratory_full": false,
+      "sanity_cos_same_A_null_recomputed": 0.09132760763168335,
+      "sanity_cos_same_A_null_expected": 0.08600220084190369,
+      "sanity_cos_same_A_null_delta": 0.005325406789779663,
+      "sanity_cos_full_full_recomputed": 0.2510502338409424,
+      "sanity_cos_full_full_expected": 0.2510501742362976,
+      "sanity_cos_full_full_delta": 5.960464477539063e-08,
+      "sanity_source_json": "experiments/direction_comparison_qwen3_14b.json"
+    },
+    {
+      "model": "qwen3_14b",
+      "dataset": "code800",
+      "layer": 24,
+      "n_yes": 23,
+      "n_no": 25,
+      "n_degenerate": 2,
+      "n_effective": 48,
+      "unique_U_count": 50,
+      "label_source": "human_adjudicated",
+      "cos_imp_struct_anull": 0.5948280692100525,
+      "ci_imp_struct_anull": [
+        0.38485768139362336,
+        0.675072991847992
+      ],
+      "cos_imp_ref_anull": 0.1392746865749359,
+      "cos_struct_ref_anull": 0.08740691840648651,
+      "ci_struct_ref_anull": [
+        0.04768922720104456,
+        0.10431310646235943
+      ],
+      "loo_auc_anull": 0.9095652173913044,
+      "boot_self_cos_median_anull": 0.9053955972194672,
+      "boot_self_cos_iqr_anull": [
+        0.8812899887561798,
+        0.923822820186615
+      ],
+      "direction_exploratory_anull": false,
+      "cos_imp_struct_full": 0.5901106595993042,
+      "ci_imp_struct_full": [
+        0.356423544883728,
+        0.6521344453096389
+      ],
+      "cos_imp_ref_full": 0.23420342803001404,
+      "cos_struct_ref_full": 0.15178848803043365,
+      "ci_struct_ref_full": [
+        0.08901668470352889,
+        0.17203686200082302
+      ],
+      "loo_auc_full": 0.8678260869565217,
+      "boot_self_cos_median_full": 0.8891279995441437,
+      "boot_self_cos_iqr_full": [
+        0.8524513691663742,
+        0.9152084439992905
+      ],
+      "direction_exploratory_full": false,
+      "sanity_cos_same_A_null_recomputed": 0.1392746865749359,
+      "sanity_cos_same_A_null_expected": 0.13814671337604523,
+      "sanity_cos_same_A_null_delta": 0.001127973198890686,
+      "sanity_cos_full_full_recomputed": 0.23420342803001404,
+      "sanity_cos_full_full_expected": 0.23420341312885284,
+      "sanity_cos_full_full_delta": 1.4901161193847656e-08,
+      "sanity_source_json": "experiments/direction_comparison_qwen3_14b_code800_L24.json"
+    },
+    {
+      "model": "qwen3_8b",
+      "dataset": "math800",
+      "layer": 21,
+      "n_yes": 24,
+      "n_no": 24,
+      "n_degenerate": 2,
+      "n_effective": 48,
+      "unique_U_count": 50,
+      "label_source": "candidate_passthrough",
+      "cos_imp_struct_anull": 0.32569512724876404,
+      "ci_imp_struct_anull": [
+        0.05961175067350269,
+        0.45905782729387284
+      ],
+      "cos_imp_ref_anull": 0.11289802193641663,
+      "cos_struct_ref_anull": 0.049457695335149765,
+      "ci_struct_ref_anull": [
+        0.002535492088645697,
+        0.07322305869311094
+      ],
+      "loo_auc_anull": 0.7795138888888888,
+      "boot_self_cos_median_anull": 0.8114178478717804,
+      "boot_self_cos_iqr_anull": [
+        0.7693027853965759,
+        0.8494138568639755
+      ],
+      "direction_exploratory_anull": false,
+      "cos_imp_struct_full": 0.5085436105728149,
+      "ci_imp_struct_full": [
+        0.23972664773464203,
+        0.5838856890797615
+      ],
+      "cos_imp_ref_full": 0.23792777955532074,
+      "cos_struct_ref_full": 0.15763261914253235,
+      "ci_struct_ref_full": [
+        0.0860118642449379,
+        0.17319969944655894
+      ],
+      "loo_auc_full": 0.7951388888888888,
+      "boot_self_cos_median_full": 0.8625858128070831,
+      "boot_self_cos_iqr_full": [
+        0.8141897022724152,
+        0.8956239819526672
+      ],
+      "direction_exploratory_full": false,
+      "sanity_cos_same_A_null_recomputed": 0.11289802193641663,
+      "sanity_cos_same_A_null_expected": 0.11602137982845306,
+      "sanity_cos_same_A_null_delta": 0.003123357892036438,
+      "sanity_cos_full_full_recomputed": 0.23792777955532074,
+      "sanity_cos_full_full_expected": 0.23792776465415955,
+      "sanity_cos_full_full_delta": 1.4901161193847656e-08,
+      "sanity_source_json": "experiments/direction_comparison_qwen3_8b.json"
+    },
+    {
+      "model": "qwen3_8b",
+      "dataset": "code800",
+      "layer": 19,
+      "n_yes": 17,
+      "n_no": 26,
+      "n_degenerate": 7,
+      "n_effective": 43,
+      "unique_U_count": 50,
+      "label_source": "candidate_passthrough",
+      "cos_imp_struct_anull": 0.3110770583152771,
+      "ci_imp_struct_anull": [
+        -0.013445640774443744,
+        0.4667839743196964
+      ],
+      "cos_imp_ref_anull": 0.12069927901029587,
+      "cos_struct_ref_anull": 0.11609308421611786,
+      "ci_struct_ref_anull": [
+        0.05012412238866091,
+        0.13638143092393873
+      ],
+      "loo_auc_anull": 0.7262443438914027,
+      "boot_self_cos_median_anull": 0.8507182002067566,
+      "boot_self_cos_iqr_anull": [
+        0.8076612651348114,
+        0.8843412697315216
+      ],
+      "direction_exploratory_anull": false,
+      "cos_imp_struct_full": 0.37287166714668274,
+      "ci_imp_struct_full": [
+        0.07194104567170144,
+        0.47231740802526473
+      ],
+      "cos_imp_ref_full": 0.27794545888900757,
+      "cos_struct_ref_full": 0.15749040246009827,
+      "ci_struct_ref_full": [
+        0.05799724394455552,
+        0.18256528228521346
+      ],
+      "loo_auc_full": 0.7217194570135747,
+      "boot_self_cos_median_full": 0.8424268662929535,
+      "boot_self_cos_iqr_full": [
+        0.7837453484535217,
+        0.8887842297554016
+      ],
+      "direction_exploratory_full": false,
+      "sanity_cos_same_A_null_recomputed": 0.12069927901029587,
+      "sanity_cos_same_A_null_expected": 0.12392596155405045,
+      "sanity_cos_same_A_null_delta": 0.0032266825437545776,
+      "sanity_cos_full_full_recomputed": 0.27794545888900757,
+      "sanity_cos_full_full_expected": 0.27794545888900757,
+      "sanity_cos_full_full_delta": 0.0,
+      "sanity_source_json": "experiments/direction_comparison_qwen3_8b_code800_L19.json"
+    }
+  ],
+  "summary": {
+    "n_cells": 8,
+    "anull_aggregate_all": {
+      "n": 8,
+      "mean": 0.38070061430335045,
+      "min": 0.1633799970149994,
+      "max": 0.5948280692100525
+    },
+    "anull_aggregate_human_audited_only": {
+      "n": 6,
+      "mean": 0.4014721214771271,
+      "min": 0.1633799970149994,
+      "max": 0.5948280692100525
+    },
+    "full_aggregate_all": {
+      "n": 8,
+      "mean": 0.4169611278921366,
+      "min": -0.22935114800930023,
+      "max": 0.9318527579307556
+    },
+    "full_aggregate_human_audited_only": {
+      "n": 6,
+      "mean": 0.40904562423626584,
+      "min": -0.22935114800930023,
+      "max": 0.9318527579307556
+    },
+    "qwen3_8b_sensitivity_anull_delta_mean": -0.020771507173776627,
+    "qwen3_8b_sensitivity_full_delta_mean": 0.007915503655870737
+  }
+}

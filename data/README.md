@@ -7,8 +7,8 @@ topic / construction.
 
 | File | A/U size | Built by | Role in paper | Attribution |
 |---|---|---|---|---|
-| `math800.jsonl` | 800 A + 800 U (12–15 categories × ~55 pairs) | `src/data/generate_math800.py` | Structural-impossibility benchmark, math domain | this repo's LICENSE |
-| `code800.jsonl` | 800 A + 800 U (8 categories × 100 pairs) | `src/data/generate_code800.py` | Structural-impossibility benchmark, code domain | this repo's LICENSE |
+| `math800.jsonl` | 800 A + 800 U (16 categories × 50 pairs) | frozen release set (see construction note) | Structural-impossibility benchmark, math domain | this repo's LICENSE |
+| `code800.jsonl` | 800 A + 800 U (8 categories × 100 pairs) | frozen release set (see construction note) | Structural-impossibility benchmark, code domain | this repo's LICENSE |
 | `fact800.jsonl` | 800 A + 800 U (SQuAD 2.0 sampled, seed=42) | `src/data/prepare_squad2.py` + `src/data/fix_fact800.py` | Epistemic-unanswerability scope-boundary benchmark | `LICENSE-SQUAD.md` |
 | `falseqa.jsonl` | matched-pair cleaned subset | `src/data/clean_falseqa.py` (cleaning of Hu et al. 2023) | Zero-shot false-premise transfer scope boundary | `LICENSE-FALSEQA.md` |
 | `abstentionbench_gsm8k.jsonl` | matched-pair GSM8K subset of AbstentionBench | `src/data/clean_abstentionbench_gsm8k.py` | Natural-distribution epistemic-style transfer + length-control analysis | `LICENSE-ABSTENTIONBENCH.md` |
@@ -28,6 +28,17 @@ topic / construction.
 ```
 
 For the self-built math/code sets, the matched-pair structure is preserved by an additional `pair_id` field linking each A to its U partner.
+
+---
+
+## `math800` / `code800` construction (frozen; not regenerated here)
+
+`math800.jsonl` and `code800.jsonl` are frozen release datasets. This repository ships **no regeneration script** for them; reproducing the paper's results uses the shipped JSONL directly.
+
+- **math800** — 16 structural-impossibility categories, 800 answerable (A) + 800 unanswerable (U) prompts (50 matched A/U pairs per category).
+- **code800** — 8 Python runtime-failure categories, 800 A + 800 U prompts (100 matched A/U pairs per category).
+- Within each A/U pair the two prompts share form, topic, and construction, differing only in answerability: A is well-posed, while U is structurally impossible (math) or raises a category-correct runtime failure (code).
+- Prompts were produced by LLM-assisted candidate drafting and then filtered and verified before freezing — math A/U checked against each category's formal rule, code A/U checked by executing the expression in CPython, with duplicate prompts removed.
 
 ---
 
@@ -51,6 +62,6 @@ For the other transfer datasets (`falseqa.jsonl`, `abstentionbench_gsm8k.jsonl`,
 
 ## Notes
 
-- The shipped self-built `math800.jsonl` / `code800.jsonl` are the post-verification frozen versions used in the paper (the generation scripts call an external LLM API to synthesize candidates; you do **not** need to re-run them for reproducing paper results).
+- The shipped `math800.jsonl` / `code800.jsonl` are the **frozen, post-verification release datasets** used in the paper, and they are the reproducibility target. This release ships no regeneration script for them; reproducing paper results uses these JSONL files directly (see the construction note above).
 - `fact800.jsonl` contains CJK character content in some questions/contexts — these are genuine SQuAD 2.0 prompts about Mandarin/Hokkien etymology, place names, and similar topics. The CJK is meaningful prompt data, not metadata.
 - See the per-dataset `LICENSE-*.md` files for upstream attribution and redistribution terms.

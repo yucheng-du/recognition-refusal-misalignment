@@ -1,13 +1,17 @@
-"""generate_figures.py — EMNLP 2026 "Recognition ⊥ Refusal" main figures.
+"""generate_figures.py — EMNLP 2026 "Recognition ⊥ Refusal" matplotlib figures.
 
-Six PDFs into ``paper/figures/``:
+Renders the matplotlib figure PDFs into ``paper/figures/``:
 
-    fig1_conceptual.pdf          d_imp ⊥ d_ref schematic + dose-response teaser
     fig2_detection_heatmap.pdf   22 cells (11 models × 2 datasets) CosNSRT AUC
     fig3_orthogonality.pdf       22 instruct cells + 6 base/instruct pairs
     fig4_gsrs_ablation.pdf       P + w + φ three-factor decomposition (legacy)
-    fig5_causal.pdf              3×3 gated flip-rate grid + dose-response
     fig6_nullspace_ablation.pdf  Null vs PC vs Full MeanDiff ablation, 22 cells
+
+Fig 1 (page-1 teaser, ``figures/fig1_teaser.pdf``) is a standalone TikZ figure
+built from ``figures/fig1_teaser.tex`` via pdflatex, not this script. Fig 5
+(causal control, ``figures/fig5_causal_v2_compact.pdf``) is built by
+``generate_fig5_v2.py``. The legacy ``fig1_conceptual*`` and ``fig5_causal``
+(3×3) generators remain below for archival reuse but are not the paper figures.
 
 Style is unified through ``paper/_figure_style.py``.
 
@@ -278,7 +282,8 @@ def fig1_conceptual():
 
 # ---------------------------------------------------------------------------
 # Fig 1 (compact, single-column) — vertical stack of the same two panels.
-# Writes fig1_conceptual_compact.pdf (the variant referenced by the paper).
+# Writes fig1_conceptual_compact.pdf. LEGACY/archival: the paper's Figure 1 is
+# now the standalone TikZ teaser figures/fig1_teaser.pdf, not this variant.
 # ---------------------------------------------------------------------------
 def fig1_conceptual_compact():
     fig, (axA, axB) = plt.subplots(
@@ -995,21 +1000,22 @@ def main(argv: list[str] | None = None) -> int:
 
     todo = args.figs or list(ALL_FIGS.keys())
     print("Generating figures into", FIG_DIR)
-    # Fig 1 reads raw activation tensors under experiments/signals/, which are
-    # not included in the anonymous-review release (~150 GB). The shipped
-    # fig1_conceptual_compact.pdf is the static figure embedded in the paper PDF.
+    # The page-1 Figure 1 is the standalone TikZ teaser figures/fig1_teaser.pdf
+    # (build: pdflatex figures/fig1_teaser.tex). The legacy fig1_conceptual*
+    # generators below instead read raw activation tensors under
+    # experiments/signals/ (~150 GB), which are not in this release.
     SIGNALS_DEPENDENT = {"fig1", "fig1compact"}
     SIGNALS_PATH = EXP / "signals"
     for name in todo:
         print(f"[{name}]")
         if name in SIGNALS_DEPENDENT and not SIGNALS_PATH.exists():
             print(
-                f"[skip] {name}: requires the full experiments/signals/ tree "
-                "(raw activation .npy files, ~150 GB) which is not in this "
-                "release. The shipped paper/figures/fig1_conceptual_compact.pdf "
-                "is the static figure embedded in the paper PDF (see OpenReview "
-                "submission). See README 'Figure reproducibility' section "
-                "for the per-figure regen matrix."
+                f"[skip] {name}: legacy conceptual generator; requires the full "
+                "experiments/signals/ tree (raw activation .npy files, ~150 GB) "
+                "which is not in this release. The paper's Figure 1 is the "
+                "standalone TikZ teaser paper/figures/fig1_teaser.pdf — build it "
+                "with `pdflatex figures/fig1_teaser.tex`. See README 'Figure "
+                "reproducibility'."
             )
             continue
         ALL_FIGS[name]()

@@ -1,4 +1,4 @@
-"""
+r"""
 validate_intervention_labels.py — Stage 2 of §4.3 intervention verification upgrade.
 
 Purpose
@@ -14,8 +14,9 @@ by an LLM-assisted pre-labeling pass, this script:
      `refusal_only=no` — is the *expected* case for invalidity-recognition
      answers like "raises TypeError" or "undefined", and is NOT an error.)
   4. Reports per-criterion `uncertain` counts (rubric ambiguity signal).
-  5. Builds the audit set: rows the human MUST review/adjudicate before the
-     final ΔG numbers are computed.
+  5. Builds an audit set of rows selected for additional review. Human
+     adjudication is a separate optional step and must not be inferred merely
+     from the existence of a populated audit-subset file.
 
 CLI
 ---
@@ -71,9 +72,9 @@ Selecting only `candidate_invalidity_aware == "yes"` rows audits A→U
 positive flips (clean=no → branch=yes) but systematically misses U→A
 positive flips (clean=yes → branch=no), which look like
 `branch_invalidity_aware="no"` and would otherwise pass to recompute on the
-LLM candidate label without human review. The rule above mirrors the flip
+LLM candidate label without review. The rule above mirrors the flip
 definition in `recompute_gated_dG_from_labels` so every condition-aware
-positive flip — under either criterion — is human-audited.
+positive flip — under either criterion — is selected for the audit set.
 
 Multiple reasons can stack on one row; reasons are comma-joined and
 deduplicated.
@@ -85,16 +86,18 @@ Output audit TSV columns
     audit_reason,
     final_invalidity_aware, final_refusal_only, final_degenerate
 
-The `final_*` columns are intentionally left blank — the human fills them in.
-The downstream `recompute_gated_dG_from_labels.py` consumes the adjudicated
-TSV (`<cell>_adjudicated.tsv`), preferring `final_*` when present and falling
-back to `candidate_*` otherwise.
+The `final_*` columns are intentionally left blank. A reviewer may fill them,
+but a populated file may also contain provisional LLM-assisted fills; its
+provenance must be recorded separately. The downstream
+`recompute_gated_dG_from_labels.py` consumes the optional override TSV,
+preferring populated `final_*` fields and falling back to `candidate_*`
+otherwise.
 
 Notes
 -----
 - This script does not call any external API and writes no .tex files.
-- It deliberately does NOT mutate the input label TSV — output is a separate
-  audit set the human edits in place.
+- It deliberately does NOT mutate the input label TSV; output is a separate
+  audit set that can be reviewed independently.
 """
 from __future__ import annotations
 
@@ -216,7 +219,7 @@ def main() -> int:
     ap.add_argument("--batches-dir", required=True,
                     help="Directory containing batch_*.jsonl + manifest.json")
     ap.add_argument("--audit-out", required=True,
-                    help="Output audit TSV (rows the human must adjudicate)")
+                    help="Output audit TSV (rows selected for additional review)")
     ap.add_argument("--stratified-no-frac", type=float, default=0.10,
                     help="Fraction of invalidity_aware=no rows to sample (default 0.10)")
     ap.add_argument("--seed", type=int, default=42,

@@ -15,8 +15,8 @@ transfer; length-control analysis).
 **License terms for this derivative.** Per CC BY-NC 4.0, this
 redistribution of the GSM8K subset of AbstentionBench (as
 `data/abstentionbench_gsm8k.jsonl`) is permitted with attribution for
-non-commercial use only. Academic research and peer review (including
-this paper's submission for review) are non-commercial uses; downstream
+non-commercial use only. Academic research, peer review, and publication of
+this academic paper are non-commercial uses; downstream
 commercial use is not permitted by this license.
 
 Attribution: please cite Feng et al. (2025) — full citation in the

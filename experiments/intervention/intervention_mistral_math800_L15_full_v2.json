@@ -13,11 +13,11 @@
     20.0,
     40.0
   ],
-  "verification_protocol": "llm_assisted_human_adjudicated_invalidity_aware_v2",
+  "verification_protocol": "llm_assisted_candidate_plus_provisional_audit_fill_invalidity_aware_v2",
   "n_uncertain_excluded_total": 0,
   "n_clean_degenerate_excluded_total": 0,
   "candidate_labels_source": "experiments/intervention/labels/mistral_math800_L15_full_candidate.tsv",
-  "adjudicated_source": "experiments/intervention/adjudicated/mistral_math800_L15_full_adjudicated.tsv",
+  "provisional_audit_fill_source": "experiments/intervention/adjudicated/mistral_math800_L15_full_adjudicated.tsv",
   "samples_tsv_source": "experiments/intervention/samples_mistral_math800_L15.tsv",
   "merge_stats": {
     "audit_overrides_applied": 599,

@@ -1,6 +1,8 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "audit_date": "2026-05-18",
+  "provenance_audit_date": "2026-08-06",
+  "label_provenance_note": "All eight cells use LLM-assisted effective labels. The six non-Qwen3-8B cells use candidate labels plus provisional audit-subset fills; the two Qwen3-8B cells use candidate-label passthrough. The release does not claim completed human adjudication for these labels.",
   "bootstrap_n": 1000,
   "sanity_tolerance": 0.015,
   "loo_auc_threshold": 0.65,
@@ -15,7 +17,7 @@
       "n_degenerate": 0,
       "n_effective": 50,
       "unique_U_count": 50,
-      "label_source": "human_adjudicated",
+      "label_source": "llm_assisted_candidate_plus_provisional_audit_fill",
       "cos_imp_struct_anull": 0.46428412199020386,
       "ci_imp_struct_anull": [
         0.19566852673888208,
@@ -69,7 +71,7 @@
       "n_degenerate": 0,
       "n_effective": 50,
       "unique_U_count": 50,
-      "label_source": "human_adjudicated",
+      "label_source": "llm_assisted_candidate_plus_provisional_audit_fill",
       "cos_imp_struct_anull": 0.1633799970149994,
       "ci_imp_struct_anull": [
         -0.04176032915711403,
@@ -123,7 +125,7 @@
       "n_degenerate": 0,
       "n_effective": 50,
       "unique_U_count": 50,
-      "label_source": "human_adjudicated",
+      "label_source": "llm_assisted_candidate_plus_provisional_audit_fill",
       "cos_imp_struct_anull": 0.48566123843193054,
       "ci_imp_struct_anull": [
         0.2695927023887634,
@@ -177,7 +179,7 @@
       "n_degenerate": 1,
       "n_effective": 49,
       "unique_U_count": 50,
-      "label_source": "human_adjudicated",
+      "label_source": "llm_assisted_candidate_plus_provisional_audit_fill",
       "cos_imp_struct_anull": 0.4869609475135803,
       "ci_imp_struct_anull": [
         0.2637730538845062,
@@ -231,7 +233,7 @@
       "n_degenerate": 2,
       "n_effective": 48,
       "unique_U_count": 50,
-      "label_source": "human_adjudicated",
+      "label_source": "llm_assisted_candidate_plus_provisional_audit_fill",
       "cos_imp_struct_anull": 0.21371835470199585,
       "ci_imp_struct_anull": [
         -0.008701089117676019,
@@ -285,7 +287,7 @@
       "n_degenerate": 2,
       "n_effective": 48,
       "unique_U_count": 50,
-      "label_source": "human_adjudicated",
+      "label_source": "llm_assisted_candidate_plus_provisional_audit_fill",
       "cos_imp_struct_anull": 0.5948280692100525,
       "ci_imp_struct_anull": [
         0.38485768139362336,
@@ -339,7 +341,7 @@
       "n_degenerate": 2,
       "n_effective": 48,
       "unique_U_count": 50,
-      "label_source": "candidate_passthrough",
+      "label_source": "llm_assisted_candidate_passthrough",
       "cos_imp_struct_anull": 0.32569512724876404,
       "ci_imp_struct_anull": [
         0.05961175067350269,
@@ -393,7 +395,7 @@
       "n_degenerate": 7,
       "n_effective": 43,
       "unique_U_count": 50,
-      "label_source": "candidate_passthrough",
+      "label_source": "llm_assisted_candidate_passthrough",
       "cos_imp_struct_anull": 0.3110770583152771,
       "ci_imp_struct_anull": [
         -0.013445640774443744,
@@ -447,7 +449,7 @@
       "min": 0.1633799970149994,
       "max": 0.5948280692100525
     },
-    "anull_aggregate_human_audited_only": {
+    "anull_aggregate_non_qwen3_8b_primary_subset": {
       "n": 6,
       "mean": 0.4014721214771271,
       "min": 0.1633799970149994,
@@ -459,7 +461,7 @@
       "min": -0.22935114800930023,
       "max": 0.9318527579307556
     },
-    "full_aggregate_human_audited_only": {
+    "full_aggregate_non_qwen3_8b_primary_subset": {
       "n": 6,
       "mean": 0.40904562423626584,
       "min": -0.22935114800930023,

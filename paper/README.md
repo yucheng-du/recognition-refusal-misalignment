@@ -1,8 +1,8 @@
 # `paper/` — figure regeneration only
 
-The paper PDF is on the OpenReview submission page; the paper source
-(`main.tex`, `references.bib`, etc.) is not redistributed in this
-anonymous code/data release.
+The accepted manuscript is on the [OpenReview submission page](https://openreview.net/forum?id=ShHf3O62rH); the paper source
+(`main.tex`, `references.bib`, etc.) is maintained separately and is not
+redistributed in this code/data release.
 
 This directory ships only the figure-regeneration pipeline:
 

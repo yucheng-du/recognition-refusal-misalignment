@@ -1,12 +1,13 @@
-"""
+r"""
 recompute_gated_dG_from_labels.py — Stage 3 of §4.3 intervention verification upgrade.
 
 Purpose
 -------
-Consume an adjudicated label TSV (produced by `prepare_intervention_review_batches`
-→ LLM-assisted candidate labels → `validate_intervention_labels` audit →
-human adjudication) plus the original samples TSV, and recompute the gated
-flip rate ΔG = signal_gated − random_gated under TWO criteria:
+Consume LLM-assisted candidate labels plus an optional audit-subset label-
+override TSV and the original samples TSV, then recompute the gated flip rate
+ΔG = signal_gated − random_gated under TWO criteria. The override file may
+contain provisional fills or independently completed human review; this script
+does not infer either provenance from the filename or populated `final_*` cells.
 
   1. invalidity_aware  (broad — accepts "raises X" / "undefined" / "diverges")
   2. refusal_only      (strict — only explicit refusal/uncertainty phrasing)
@@ -53,30 +54,31 @@ CLI
 ---
     python scripts/recompute_gated_dG_from_labels.py \
         --candidate-labels experiments/intervention/labels/<cell>_labels.tsv \
-        [--adjudicated experiments/intervention/labels/<cell>_adjudicated.tsv] \
+        [--label-overrides experiments/intervention/labels/<cell>_overrides.tsv] \
         --tsv experiments/intervention/samples_<m>_<ds>_L<L>.tsv \
         --out experiments/intervention/intervention_<m>_<ds>_L<L>_v2.json \
         [--original-json experiments/intervention/intervention_<m>_<ds>_L<L>.json]
 
 Why two label flags
 -------------------
-The validator emits an *audit subset* TSV containing only the rows the human
-must adjudicate. If the recompute script accepted only that subset, the
-~50 % of generations that did NOT need adjudication would be silently
-dropped from the gate denominators and ΔG would collapse without error.
+The validator emits an *audit subset* TSV containing only selected rows. If
+the recompute script accepted only that subset, the remaining generations
+would be silently dropped from the gate denominators and ΔG would collapse
+without error.
 
 Therefore:
   --candidate-labels  the FULL pre-labeling output, one row per generation
                       key (~900 rows for the canonical 50 × 5 × 2 grid).
-  --adjudicated       OPTIONAL audit-subset TSV with `final_*` columns.
-                      Rows here override the candidate labels per-field
-                      (only fields whose `final_*` is non-blank).
+  --label-overrides   OPTIONAL audit-subset TSV with `final_*` columns.
+                      Rows here override candidate labels per field (only
+                      fields whose `final_*` is non-blank). `--adjudicated`
+                      is retained as a backwards-compatible alias only.
 
 Hard-fail conditions
 --------------------
 1. duplicate `key` in --candidate-labels
-2. duplicate `key` in --adjudicated
-3. a `key` in --adjudicated does not exist in --candidate-labels
+2. duplicate `key` in --label-overrides
+3. a `key` in --label-overrides does not exist in --candidate-labels
 4. merge sanity: aggregated row count != candidate-labels row count
 
 A warning (not a fail) is emitted when --candidate-labels does not cover
@@ -100,7 +102,7 @@ Notes
 -----
 - The audit-set TSV emitted by `validate_intervention_labels.py` already
   carries `candidate_*` columns alongside `final_*`. When passed as
-  `--adjudicated`, only the `final_*` columns are read; the canonical
+  `--label-overrides`, only the `final_*` columns are read; the canonical
   candidate labels still come from `--candidate-labels`.
 - This script does NOT call any external API and writes no .tex files.
 """
@@ -199,8 +201,8 @@ def load_candidate_labels(path: Path) -> dict[str, dict[str, str]]:
     return out
 
 
-def load_adjudicated_overrides(path: Path) -> dict[str, dict[str, str]]:
-    """Load adjudication overrides. Returns {key: {ia, ro, dg}} where each
+def load_label_overrides(path: Path) -> dict[str, dict[str, str]]:
+    """Load label overrides. Returns {key: {ia, ro, dg}} where each
     field value is the non-empty `final_*` cell, or "" if blank.
 
     Hard-fails on duplicate `key` rows and on missing `final_*` columns.
@@ -210,14 +212,14 @@ def load_adjudicated_overrides(path: Path) -> dict[str, dict[str, str]]:
         reader = csv.DictReader(f, delimiter="\t")
         cols = set(reader.fieldnames or [])
         if "key" not in cols:
-            raise ValueError(f"adjudicated TSV missing `key` column: {reader.fieldnames}")
+            raise ValueError(f"label-override TSV missing `key` column: {reader.fieldnames}")
         for c in CRITERION_FIELDS:
             if f"final_{c}" not in cols:
-                raise ValueError(f"adjudicated TSV missing column: final_{c}")
+                raise ValueError(f"label-override TSV missing column: final_{c}")
         for row in reader:
             k = row["key"]
             if k in out:
-                raise ValueError(f"duplicate key in --adjudicated: {k}")
+                raise ValueError(f"duplicate key in --label-overrides: {k}")
             out[k] = {
                 "invalidity_aware": (row.get("final_invalidity_aware") or "").strip().lower(),
                 "refusal_only":     (row.get("final_refusal_only")     or "").strip().lower(),
@@ -236,7 +238,7 @@ def merge_labels(
 
     Returns (merged_labels, merge_stats). `merge_stats` includes:
         audit_overrides_applied      # rows whose any final_* override was applied
-        non_audit_passthrough        # rows untouched by adjudication
+        non_audit_passthrough        # rows untouched by the override file
         total_generations_aggregated
         candidate_labels_row_count
         per_field_overrides[field]   # per-criterion override counts
@@ -249,7 +251,7 @@ def merge_labels(
         head = ", ".join(extra[:10])
         more = f" (+{len(extra) - 10} more)" if len(extra) > 10 else ""
         raise ValueError(
-            f"adjudicated TSV contains {len(extra)} key(s) not in candidate-labels: {head}{more}"
+            f"label-override TSV contains {len(extra)} key(s) not in candidate-labels: {head}{more}"
         )
 
     merged: dict[str, dict[str, str]] = {}
@@ -463,8 +465,10 @@ def main() -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--candidate-labels", required=True,
                     help="FULL pre-labeling output TSV (one row per generation key)")
-    ap.add_argument("--adjudicated", default=None,
-                    help="Optional audit-subset TSV with `final_*` overrides")
+    ap.add_argument("--label-overrides", "--adjudicated", dest="label_overrides",
+                    default=None, help="Optional audit-subset TSV with `final_*` "
+                    "overrides; --adjudicated is a legacy alias and does not "
+                    "assert human provenance")
     ap.add_argument("--tsv", required=True, help="Source samples TSV")
     ap.add_argument("--out", required=True,
                     help="Output JSON (intervention_<m>_<ds>_L<L>_v2.json)")
@@ -474,7 +478,7 @@ def main() -> int:
     args = ap.parse_args()
 
     candidate_path = Path(args.candidate_labels)
-    adjudicated_path = Path(args.adjudicated) if args.adjudicated else None
+    label_overrides_path = Path(args.label_overrides) if args.label_overrides else None
     tsv_path = Path(args.tsv)
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -482,8 +486,8 @@ def main() -> int:
     if not candidate_path.exists():
         print(f"[error] candidate-labels TSV not found: {candidate_path}", file=sys.stderr)
         return 2
-    if adjudicated_path is not None and not adjudicated_path.exists():
-        print(f"[error] adjudicated TSV not found: {adjudicated_path}", file=sys.stderr)
+    if label_overrides_path is not None and not label_overrides_path.exists():
+        print(f"[error] label-override TSV not found: {label_overrides_path}", file=sys.stderr)
         return 2
     if not tsv_path.exists():
         print(f"[error] samples TSV not found: {tsv_path}", file=sys.stderr)
@@ -499,7 +503,7 @@ def main() -> int:
             print(f"[warn] legacy JSON malformed; ignoring: {legacy_path}", file=sys.stderr)
 
     candidates = load_candidate_labels(candidate_path)
-    overrides = load_adjudicated_overrides(adjudicated_path) if adjudicated_path else None
+    overrides = load_label_overrides(label_overrides_path) if label_overrides_path else None
     labels, merge_stats = merge_labels(candidates, overrides)
 
     grid, alphas, n_per_class = load_samples_grid(tsv_path)
@@ -613,11 +617,16 @@ def main() -> int:
         "proj_std": legacy.get("proj_std"),
         "mu_norm": legacy.get("mu_norm"),
         "alphas": alphas,
-        "verification_protocol": "llm_assisted_human_adjudicated_invalidity_aware_v2",
+        "verification_protocol": (
+            "llm_assisted_candidate_plus_label_override_file_invalidity_aware_v2"
+            if label_overrides_path else
+            "llm_assisted_candidate_passthrough_invalidity_aware_v2"
+        ),
         "n_uncertain_excluded_total": total_uncertain_excluded,
         "n_clean_degenerate_excluded_total": total_clean_degenerate_excluded,
         "candidate_labels_source": str(candidate_path),
-        "adjudicated_source": (str(adjudicated_path) if adjudicated_path else None),
+        "label_override_source": (str(label_overrides_path) if label_overrides_path else None),
+        "label_override_provenance": "not_inferred_by_recompute_script",
         "samples_tsv_source": str(tsv_path),
         "merge_stats": merge_stats,
         "grid_coverage": {
@@ -640,7 +649,8 @@ def main() -> int:
     md_lines.append(f"Total `uncertain` excluded (counting signal + random): {total_uncertain_excluded}  ")
     md_lines.append(f"Total clean-degenerate samples excluded (cell-level): {total_clean_degenerate_excluded}  ")
     md_lines.append(f"Candidate labels: `{candidate_path}`  ")
-    md_lines.append(f"Adjudicated overrides: `{adjudicated_path or '(none)'}`  ")
+    md_lines.append(f"Label-override file: `{label_overrides_path or '(none)'}`  ")
+    md_lines.append("Override provenance: not inferred by this script.  ")
     md_lines.append(f"Source TSV: `{tsv_path}`  ")
     md_lines.append(
         f"Merge stats: overrides={merge_stats['audit_overrides_applied']}, "
@@ -704,9 +714,9 @@ def main() -> int:
     md_path.write_text("\n".join(md_lines), encoding="utf-8")
 
     print(f"[recompute] candidate labels      : {merge_stats['candidate_labels_row_count']}  ({candidate_path})")
-    print(f"[recompute] adjudicated overrides : "
+    print(f"[recompute] label-override rows   : "
           f"{(0 if overrides is None else len(overrides))}  "
-          f"({adjudicated_path or '(none)'})")
+          f"({label_overrides_path or '(none)'})")
     print(f"[recompute] audit overrides       : {merge_stats['audit_overrides_applied']}")
     print(f"[recompute] non-audit passthrough : {merge_stats['non_audit_passthrough']}")
     print(f"[recompute] total aggregated      : {merge_stats['total_generations_aggregated']}")

@@ -62,6 +62,6 @@ For the other transfer datasets (`falseqa.jsonl`, `abstentionbench_gsm8k.jsonl`,
 
 ## Notes
 
-- The shipped `math800.jsonl` / `code800.jsonl` are the **frozen, post-verification release datasets** used in the paper, and they are the reproducibility target. This release ships no regeneration script for them; reproducing paper results uses these JSONL files directly (see the construction note above).
+- The shipped `math800.jsonl` / `code800.jsonl` are the **frozen release datasets** used in the paper and are the reproducibility target. Their A/U status was checked by the category rules described above (and by CPython execution for code). This release ships no regeneration script for them; reproducing paper results uses these JSONL files directly.
 - `fact800.jsonl` contains CJK character content in some questions/contexts — these are genuine SQuAD 2.0 prompts about Mandarin/Hokkien etymology, place names, and similar topics. The CJK is meaningful prompt data, not metadata.
 - See the per-dataset `LICENSE-*.md` files for upstream attribution and redistribution terms.

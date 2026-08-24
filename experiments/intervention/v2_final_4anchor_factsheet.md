@@ -287,10 +287,13 @@ high deg_sig.
 ## 5. Protocol upgrade audit (for Appendix)
 
 The v2 protocol is a **refinement** of v1's labeling pipeline, not a
-method change. Both protocols are LLM-assisted human-adjudicated; both
-operate on the same 900-generation TSVs per cell; both compute gated
-rate gaps. Differences are scoped to the rubric, the degenerate
-handling, and the audit pass.
+model-generation change. Both versions operate on the same 900-generation
+TSVs per main-grid cell and compute gated rate gaps. The v2 effective labels
+are LLM-assisted: nine non-Qwen3-8B cells use candidate labels plus
+provisional audit-subset fills, while the three Qwen3-8B cells use candidate
+passthrough. The provisional files are not evidence of completed human
+adjudication. Differences are scoped to the rubric, degenerate handling, and
+label-review pass.
 
 ### 5.1 What v2 adds over v1
 
@@ -299,7 +302,7 @@ handling, and the audit pass.
 | Rubric | Single keyword/lexical match for "abstention" (e.g. "undefined", "I cannot", "no answer"). | Invalidity-aware rubric with domain-specific structural categories (math: div-zero / sqrt-neg / log-neg etc.; code: raises X; fact: epistemic unanswerability). Two criteria reported in parallel: IA (full structural rubric) and RO (refusal-only sub-criterion using "I cannot / I don't know"). |
 | Mixed output | Counted as abstention if any abstention keyword present. | Stage B Rule 3: concrete answer with appended invalidity caveat → IA = no. Caught the systematic FP class (≈27% of provisionally-kept candidate flips on Mistral code). |
 | Degenerate generations | Silently included in flip and gate counts. | The degenerate-output guard: degenerate branches (looping / EOS-only / pure-punctuation) forced flip=False; clean degenerate baselines excluded from gate denominator. |
-| Audit | LLM-assisted candidate + human override. | LLM-assisted candidate + Stage-B in-memory rubric fill + 10% self-check + pass-2 second-read on the flagged subset (catches both under-apply and over-apply of Rule 3). |
+| Label review | Legacy keyword detector with documented manual override of false-positive flips. | LLM-assisted candidate + Stage-B provisional rubric fill + 10% self-check + pass-2 second-read on the flagged subset. The released aggregate does not claim completed human adjudication. |
 | Empty-gate handling | gateN=0 silently rendered as ΔG = 0. | gateN=0 rendered as N/A (and surfaced as such in §2 / §6). |
 | Reported metrics | Single ΔG per (cell, direction, α). | IA ΔG and RO ΔG reported separately; degenerate-signal and degenerate-random rates exposed per row. |
 

@@ -1,8 +1,8 @@
-# Recognition–Refusal Misalignment in LLMs — Anonymous Submission
+# Recognition–Refusal Misalignment in LLMs
 
-This repository accompanies the EMNLP 2026 submission *"Recognition–Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions."* It contains the matched-pair datasets, the analysis / extraction / steering pipeline, the figure-regeneration scripts, and the curated experiment artifacts needed to reproduce the shipped figure assets. The paper PDF itself is on the OpenReview submission page; the paper source (`main.tex`, `references.bib`, etc.) is not redistributed in this code/data release.
+This repository accompanies the EMNLP 2026 Main Conference paper *"Recognition–Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions"* by Yucheng Du and Xiyang Hu. It contains the matched-pair datasets, the analysis / extraction / steering pipeline, the figure-regeneration scripts, and the curated experiment artifacts needed to reproduce the shipped figure assets. The accepted manuscript is available on [OpenReview](https://openreview.net/forum?id=ShHf3O62rH); the paper source (`main.tex`, `references.bib`, etc.) is maintained separately and is not redistributed in this code/data release.
 
-This release is anonymized for double-blind review. A de-anonymized version will be released on acceptance.
+Authors: Yucheng Du (University of Southern California; [yuchengd@usc.edu](mailto:yuchengd@usc.edu)) and Xiyang Hu (Arizona State University). Correspondence: Xiyang Hu ([xiyanghu@asu.edu](mailto:xiyanghu@asu.edu)).
 
 ---
 
@@ -15,7 +15,7 @@ Across an 11-model main grid spanning 1.7B–70B and two structural-impossibilit
 3. **The misalignment largely predates RLHF.** Across 6 base/instruct pairs on math800, $\Delta\cos$ is $[-0.008, +0.110]$ (mean $+0.037$) — instruction tuning modulates the angle in a low-cosine regime rather than producing it.
 4. **The direction is causal.** Generation-time activation steering on $d_{\mathrm{imp}}$ changes invalidity-aware behavior on the 4-anchor math/code intervention grid; gated $\Delta$G improves by **+33 to +52 pp**, and a 16-model steering sweep confirms the math/code footprint.
 
-The full paper PDF is on the OpenReview submission page (this anonymous code/data release is paired with that submission and does not redistribute the paper source).
+The full paper PDF is on the [OpenReview submission page](https://openreview.net/forum?id=ShHf3O62rH). This code/data release does not redistribute the paper source.
 
 ---
 
@@ -25,18 +25,21 @@ The full paper PDF is on the OpenReview submission page (this anonymous code/dat
 # 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. Regenerate the standalone TikZ teaser and the matplotlib figures
-cd paper/figures && pdflatex -interaction=nonstopmode fig1_teaser.tex && cd ../..
-python paper/generate_fig5_v2.py
-python paper/generate_figures.py --figs fig2 fig3 fig4 fig6
+# 2. Check the shipped aggregate artifacts and provenance metadata
+python3 scripts/verify_core_conclusions.py
 
-# 3. The manuscript PDF/source is not redistributed here
-#    Use the OpenReview submission PDF for the paper text.
+# 3. Regenerate the standalone TikZ teaser and the matplotlib figures
+cd paper/figures && pdflatex -interaction=nonstopmode fig1_teaser.tex && cd ../..
+python3 paper/generate_fig5_v2.py
+python3 paper/generate_figures.py --figs fig2 fig3 fig4 fig6
+
+# 4. The manuscript source is not redistributed here
+#    Use the OpenReview page for the accepted manuscript.
 ```
 
-A reviewer-only smoke test takes < 5 minutes.
+A lightweight smoke test takes < 5 minutes.
 
-For the heavier pipeline (extracting hidden states from a HuggingFace model, fitting probes, running steering), see `scripts/README.md` and the per-script CLI help. The intervention pipeline (`scripts/intervention_nullspace.py`) requires GPU access and human verification; results in `experiments/intervention/intervention_*_full_v2.json` are the shipped post-verification artifacts.
+For the heavier pipeline (extracting hidden states from a HuggingFace model, fitting probes, running steering), see `scripts/README.md` and the per-script CLI help. The intervention pipeline (`scripts/intervention_nullspace.py`) requires GPU access. The shipped v2 aggregates use LLM-assisted candidate labels under a fixed invalidity-aware rubric: nine main-grid cells apply provisional audit-subset fills, while the three Qwen3-8B cells use candidate-label passthrough. The supplementary Gemma-3-12B/code cell also applies provisional audit-subset fills. These provenance labels describe the effective inputs to the released aggregates and do not claim completed human adjudication.
 
 ---
 
@@ -51,9 +54,9 @@ For the heavier pipeline (extracting hidden states from a HuggingFace model, fit
 | Appendix null-space ablation | `figures/fig6_nullspace_ablation.pdf` | **Yes** | `python paper/generate_figures.py --figs fig6` reads `experiments/ablation_nullpc_results_11model.json` |
 | Appendix GSRS ablation | `figures/fig4_gsrs_ablation.pdf` | **Yes** | `python paper/generate_figures.py --figs fig4` — frozen constants in script, no file I/O |
 
-Fig 1 is a standalone TikZ overview figure and does not require the raw activation-tensor tree. The raw 151 GB `experiments/signals/` tree is still needed only if reviewers want to recompute representations from scratch rather than use the shipped aggregate artifacts.
+Fig 1 is a standalone TikZ overview figure and does not require the raw activation-tensor tree. The raw 151 GB `experiments/signals/` tree is needed only to recompute representations from scratch rather than use the shipped aggregate artifacts.
 
-`experiments/d_struct_behav_matrix.json` is a small derived aggregate for the behavior-defined invalidity-aware direction reported in the paper. Its local builder consumes the omitted raw `experiments/signals/*.npy` activations plus post-verification intervention labels; the JSON is therefore shipped as the reproducibility target for this comparison, rather than as a one-command-from-scratch regeneration step in the lightweight anonymous release.
+`experiments/d_struct_behav_matrix.json` is a small derived aggregate for the behavior-defined invalidity-aware direction reported in the paper. Its local builder consumes the omitted raw `experiments/signals/*.npy` activations plus the effective LLM-assisted labels used by the released intervention aggregates. In its eight math/code cells, the six non-Qwen3-8B cells use candidate labels plus provisional audit-subset fills and the two Qwen3-8B cells use candidate-label passthrough. The JSON is therefore shipped as the reproducibility target for this comparison, rather than as a one-command-from-scratch regeneration step in the lightweight release.
 
 ---
 
@@ -95,7 +98,7 @@ Per-model peak layers are pre-resolved and registered in the relevant scripts; s
 ```
 .
 ├── README.md                                 (this file)
-├── LICENSE                                   (placeholder for anonymous review)
+├── LICENSE                                   (MIT license for original code and self-created artifacts)
 ├── requirements.txt
 ├── paper/                                    (figure pipeline only — paper PDF is on OpenReview)
 │   ├── README.md                             (what this directory ships and what it doesn't)
@@ -122,7 +125,7 @@ Per-model peak layers are pre-resolved and registered in the relevant scripts; s
     └── analysis/d_ref_energy_decomp/         (11-model energy-decomposition table)
 ```
 
-The 151 GB `experiments/signals/` raw activation tree is intentionally **not** in this release. Reviewers who want to recompute representations from scratch should re-run the extraction pipeline:
+The 151 GB `experiments/signals/` raw activation tree is intentionally **not** in this release. To recompute representations from scratch, re-run the extraction pipeline:
 
 ```bash
 python scripts/run_extract_minimal.py --model <hf_id> --prompts data/math800.jsonl \
@@ -131,20 +134,33 @@ python scripts/run_extract_minimal.py --model <hf_id> --prompts data/math800.jso
 
 This populates the same `experiments/signals/` layout the analysis scripts read.
 
-Some post-adjudication aggregates, including `experiments/d_struct_behav_matrix.json`, additionally require verified intervention-label TSVs. These are represented in the release by the frozen aggregate JSONs used by the paper figures/tables; full regeneration from raw activations follows the same extraction and verification pipeline but is outside the lightweight smoke-test path.
+Some label-dependent aggregates, including `experiments/d_struct_behav_matrix.json`, additionally require the effective intervention-label TSVs used during aggregation. Those TSVs are not included in this lightweight release; the frozen aggregate JSONs used by the paper figures/tables are the released reproducibility targets. Their provenance is LLM-assisted candidate labeling with provisional audit-subset fills for the six-cell non-Qwen3-8B behavior subset and candidate-label passthrough for the two Qwen3-8B behavior cells.
 
 ---
 
 ## Citation
 
 ```bibtex
-@misc{anon2026,
-  author = {Anonymous},
+@inproceedings{du2026recognition,
+  author = {Yucheng Du and Xiyang Hu},
   title  = {Recognition--Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions},
   year   = {2026},
-  note   = {EMNLP 2026 submission, under review}
+  booktitle = {Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing},
+  note   = {Main Conference; accepted manuscript available at https://openreview.net/forum?id=ShHf3O62rH}
 }
 ```
+
+---
+
+## License and third-party data
+
+The root [MIT License](LICENSE) applies to the authors' original code and self-created artifacts, including `math800` and `code800`. It does **not** relicense third-party datasets, model weights, or other upstream material. In particular:
+
+- `fact800.jsonl` remains subject to SQuAD 2.0's CC BY-SA 4.0 terms (`data/LICENSE-SQUAD.md`).
+- `abstentionbench_gsm8k.jsonl` remains subject to AbstentionBench's CC BY-NC 4.0 terms, layered over its GSM8K source (`data/LICENSE-ABSTENTIONBENCH.md`).
+- `difficulty_control_gsm8k.jsonl` is derived from MIT-licensed GSM8K; retain its upstream attribution (`data/LICENSE-GSM8K.md`).
+- FalseQA is fetch-only because its upstream repository did not state a license when this release was prepared; this repository does not redistribute `data/falseqa.jsonl` (`data/LICENSE-FALSEQA.md`).
+- Model weights are downloaded separately and remain governed by their respective upstream terms.
 
 ---
 

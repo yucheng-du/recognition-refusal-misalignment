@@ -5,13 +5,13 @@ schema used by this repo.
 
 WHY THIS SCRIPT EXISTS
 ----------------------
-At the time of this anonymous release, the upstream FalseQA repository
+At the time this release was prepared, the upstream FalseQA repository
 (github.com/thunlp/FalseQA) does not contain an explicit LICENSE file.
 Per default copyright law, this means no automatic redistribution
 permission is granted. To stay clearly within fair-use academic
 reproducibility, this repo does NOT ship `data/falseqa.jsonl`; instead,
 this script downloads the data directly from the upstream source so the
-reviewer obtains it under whatever terms the upstream authors apply.
+user obtains it under whatever terms the upstream authors apply.
 
 By running this script you are accepting that you download FalseQA
 yourself from the upstream repository.

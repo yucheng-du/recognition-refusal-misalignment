@@ -23,15 +23,15 @@ CLI entry points for the extraction, detection, intervention, steering, and eval
 | `aggregate_main_grid_v2.py` | Per-cell → 22-cell main-grid aggregate; writes `experiments/main_grid_facts_v2.json`. |
 | `aggregate_ablation_v2.py` | Aggregates per-cell ablation JSONs into `experiments/ablation_nullpc_results_11model.json`. |
 | `aggregate_steering_v2det.py` | Aggregates the 48-cell × 16-model steering breadth sweep. |
-| `recompute_gated_dG_from_labels.py` | Recomputes invalidity-aware gated $\Delta$G from human verification labels. |
+| `recompute_gated_dG_from_labels.py` | Recomputes invalidity-aware gated $\Delta$G from LLM-assisted candidate labels plus an optional label-override TSV. |
 
-Note: `experiments/d_struct_behav_matrix.json` is shipped as a derived post-adjudication aggregate. Its local builder depends on the omitted raw `experiments/signals/*.npy` activation tree and verified intervention-label TSVs, so it is not listed as a runnable lightweight-release script here.
+Note: `experiments/d_struct_behav_matrix.json` is shipped as a label-dependent aggregate. Its local builder depends on the omitted raw `experiments/signals/*.npy` activation tree and effective intervention-label TSVs, so it is not listed as a runnable lightweight-release script here. The six non-Qwen3-8B cells use LLM-assisted candidate labels plus provisional audit-subset fills; the two Qwen3-8B cells use candidate-label passthrough.
 
 ## Intervention + steering
 
 | Script | Role |
 |---|---|
-| `intervention_nullspace.py` | The 4-anchor intervention pipeline that produces `experiments/intervention/intervention_*_full_v2.json`. Requires GPU + human verification. |
+| `intervention_nullspace.py` | The 4-anchor intervention-generation pipeline that produces per-sample outputs. Requires a GPU; label aggregation is handled separately. |
 | `impossibility_steering.py` | Generation-time activation steering along $d_{\mathrm{imp}}$ vs a random-direction control. |
 | `validate_intervention_labels.py` | Sanity-check pass on per-cell labels before invalidity-aware aggregation. |
 | `compare_steering_v1_v2det.py` | Compares legacy v1 vs invalidity-aware v2 steering rates. |
@@ -45,7 +45,7 @@ Note: `experiments/d_struct_behav_matrix.json` is shipped as a derived post-adju
 | `eval_abstentionbench_lengthcontrol.py` | Length-controlled subset of AbstentionBench-GSM8K. |
 | `eval_difficulty_control.py` | Difficulty-controlled split null check. |
 | `prepare_difficulty_control.py` | Builds `data/difficulty_control_gsm8k.jsonl` from GSM8K. |
-| `verify_core_conclusions.py` | One-shot replication check: reads aggregate JSONs, prints the headline numbers that appear in the paper (see OpenReview submission). |
+| `verify_core_conclusions.py` | Lightweight consistency check: reads shipped aggregate JSONs, reports headline summaries, and validates released label-provenance metadata. |
 
 ## Orchestrators (shell)
 
@@ -56,15 +56,15 @@ Note: `experiments/d_struct_behav_matrix.json` is shipped as a derived post-adju
 | `extract_noncore_datasets.sh` | Convenience wrapper to extract signals for the auxiliary transfer datasets. |
 | `run_phase1_mac.sh` | Mac-tier orchestrator for phi-4-mini / gemma-3-4b / qwen3-8b / qwen3-14b. |
 
-## Typical reviewer workflow
+## Typical lightweight workflow
 
 ```bash
 # Sanity check (reads aggregate JSONs, prints headline numbers)
-python scripts/verify_core_conclusions.py
+python3 scripts/verify_core_conclusions.py
 
 # Regenerate the 5 fully-reproducible figures
-python paper/generate_fig5_v2.py
-python paper/generate_figures.py --figs fig2 fig3 fig4 fig6
+python3 paper/generate_fig5_v2.py
+python3 paper/generate_figures.py --figs fig2 fig3 fig4 fig6
 
 # Full pipeline on one model (heavy — requires GPU + ~30 GB activations)
 MODEL=mistral BASE_MODEL=mistral_base bash scripts/run_model_suite.sh

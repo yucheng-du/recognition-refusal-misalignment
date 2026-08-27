@@ -2,7 +2,7 @@
 
 Unified one-shot script: reads per-model JSONs from experiments/ and produces
 a single comprehensive facts JSON containing the headline numbers cited in
-the paper (see OpenReview submission).
+the accompanying paper.
 
 Sections aggregated (each section corresponds to a paper claim):
 

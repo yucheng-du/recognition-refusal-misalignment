@@ -1,0 +1,92 @@
+[
+  {
+    "model": "qwen3_14b",
+    "dataset": "math800",
+    "layer": 25,
+    "hidden_dim": 5120,
+    "n_harmful_verified": 44,
+    "n_harmless_verified": 50,
+    "cos_reconstructed_vs_cached_dref": 0.9999999666740628,
+    "provenance": "behavior-verified prompt subsets (paper protocol re-run)",
+    "k5": {
+      "principal_cosines": [
+        0.14436229024272895,
+        0.10774579310057306,
+        0.05599964836703202,
+        0.0195363063082046,
+        0.000986685195450841
+      ],
+      "first_cos": 0.14436229024272895,
+      "first_angle_deg": 81.69964741898241,
+      "mean_sq_cos": 0.007193645640814312,
+      "rand_first_cos_mean": 0.04999530348058757,
+      "rand_first_cos_p95": 0.06485665105788199,
+      "rand_mean_sq_cos_mean": 0.0009368067774751844
+    },
+    "k10": {
+      "principal_cosines": [
+        0.19065260530561293,
+        0.1400013464730733,
+        0.09325507788898534,
+        0.08601215155982257,
+        0.06379770824000956,
+        0.05220349555141075,
+        0.03920224746635565,
+        0.019456074344865834,
+        0.01397890502341304,
+        0.007452724610621095
+      ],
+      "first_cos": 0.19065260530561293,
+      "first_angle_deg": 79.00912806050061,
+      "mean_sq_cos": 0.00810050531416872,
+      "rand_first_cos_mean": 0.07875595214345137,
+      "rand_first_cos_p95": 0.09134953513497106,
+      "rand_mean_sq_cos_mean": 0.001954472788828769
+    }
+  },
+  {
+    "model": "qwen3_14b",
+    "dataset": "code800",
+    "layer": 24,
+    "hidden_dim": 5120,
+    "n_harmful_verified": 44,
+    "n_harmless_verified": 50,
+    "cos_reconstructed_vs_cached_dref": 1.0000000081940374,
+    "provenance": "behavior-verified prompt subsets (paper protocol re-run)",
+    "k5": {
+      "principal_cosines": [
+        0.20875390384588235,
+        0.08101720547144027,
+        0.058702025231176416,
+        0.04296284626632944,
+        0.04097149524520934
+      ],
+      "first_cos": 0.20875390384588235,
+      "first_angle_deg": 77.95066217565552,
+      "mean_sq_cos": 0.011422475460294323,
+      "rand_first_cos_mean": 0.05111363669137057,
+      "rand_first_cos_p95": 0.06787469666540007,
+      "rand_mean_sq_cos_mean": 0.00098521852226795
+    },
+    "k10": {
+      "principal_cosines": [
+        0.2732763987939475,
+        0.13888558220540134,
+        0.1069920769651868,
+        0.08703028043688087,
+        0.07417672963725508,
+        0.06366219732378346,
+        0.035778616168339626,
+        0.03095360441462049,
+        0.027002191896044116,
+        0.00478130312040757
+      ],
+      "first_cos": 0.2732763987939475,
+      "first_angle_deg": 74.14067491526355,
+      "mean_sq_cos": 0.012553604614423747,
+      "rand_first_cos_mean": 0.07914367803820155,
+      "rand_first_cos_p95": 0.09201770294926379,
+      "rand_mean_sq_cos_mean": 0.001979090476886159
+    }
+  }
+]

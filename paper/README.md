@@ -1,8 +1,8 @@
 # `paper/` — figure regeneration only
 
-The accepted manuscript is on the [OpenReview submission page](https://openreview.net/forum?id=ShHf3O62rH); the paper source
-(`main.tex`, `references.bib`, etc.) is maintained separately and is not
-redistributed in this code/data release.
+The paper source (`main.tex`, `references.bib`, etc.) is maintained separately
+and is not redistributed in this code/data release. Public manuscript links
+(arXiv and ACL Anthology) are pending.
 
 This directory ships only the figure-regeneration pipeline:
 

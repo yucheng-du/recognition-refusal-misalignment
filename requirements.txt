@@ -18,3 +18,6 @@ tqdm>=4.65
 
 # HuggingFace datasets (used by src/data/clean_*.py and src/data/prepare_squad2.py).
 datasets>=2.14
+
+# Stochastic math/code candidate generation.
+anthropic>=0.40

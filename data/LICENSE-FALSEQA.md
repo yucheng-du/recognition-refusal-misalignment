@@ -4,7 +4,7 @@
 (2023). The cleaning pipeline `src/data/clean_falseqa.py` applies minimal
 normalizations (preserving row count, A/U balance, and id structure) plus
 one documented local dedup rewrite — see the paper's Appendix on data
-construction (on the OpenReview submission) for the full cleaning procedure.
+construction for the full cleaning procedure.
 
 - **Upstream**: <https://github.com/thunlp/FalseQA>
 - **Citation**: Hu et al., "Won't Get Fooled Again: Answering Questions

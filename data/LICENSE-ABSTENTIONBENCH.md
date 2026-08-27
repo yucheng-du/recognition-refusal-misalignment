@@ -7,7 +7,7 @@ natural-distribution epistemic-style transfer benchmark (§5 character
 transfer; length-control analysis).
 
 - **Upstream**: AbstentionBench (Feng et al., 2025) — see the paper's
-  bibliography on the OpenReview submission for the full citation.
+  bibliography for the full citation.
 - **Upstream LICENSE file**: confirmed
   **Creative Commons Attribution-NonCommercial 4.0 International
   (CC BY-NC 4.0)** from the upstream repository's LICENSE file.
@@ -20,7 +20,7 @@ this academic paper are non-commercial uses; downstream
 commercial use is not permitted by this license.
 
 Attribution: please cite Feng et al. (2025) — full citation in the
-paper's bibliography on the OpenReview submission — and the
+paper's bibliography — and the
 AbstentionBench upstream repository when using or redistributing this file.
 
 The underlying GSM8K dataset (Cobbe et al., 2021) is itself MIT-licensed —

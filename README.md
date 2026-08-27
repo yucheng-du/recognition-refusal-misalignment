@@ -1,6 +1,6 @@
 # Recognition–Refusal Misalignment in LLMs
 
-This repository accompanies the EMNLP 2026 Main Conference paper *"Recognition–Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions"* by Yucheng Du and Xiyang Hu. It contains the matched-pair datasets, the analysis / extraction / steering pipeline, the figure-regeneration scripts, and the curated experiment artifacts needed to reproduce the shipped figure assets. The accepted manuscript is available on [OpenReview](https://openreview.net/forum?id=ShHf3O62rH); the paper source (`main.tex`, `references.bib`, etc.) is maintained separately and is not redistributed in this code/data release.
+This repository accompanies the EMNLP 2026 Main Conference paper *"Recognition–Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions"* by Yucheng Du and Xiyang Hu. It contains the matched-pair datasets, the analysis / extraction / steering pipeline, the figure-regeneration scripts, and the curated experiment artifacts needed to reproduce the shipped figure assets. The paper source (`main.tex`, `references.bib`, etc.) is maintained separately and is not redistributed in this code/data release. Public manuscript links (arXiv and ACL Anthology) are pending.
 
 Authors: Yucheng Du (University of Southern California; [yuchengd@usc.edu](mailto:yuchengd@usc.edu)) and Xiyang Hu (Arizona State University). Correspondence: Xiyang Hu ([xiyanghu@asu.edu](mailto:xiyanghu@asu.edu)).
 
@@ -15,7 +15,7 @@ Across an 11-model main grid spanning 1.7B–70B and two structural-impossibilit
 3. **The misalignment largely predates RLHF.** Across 6 base/instruct pairs on math800, $\Delta\cos$ is $[-0.008, +0.110]$ (mean $+0.037$) — instruction tuning modulates the angle in a low-cosine regime rather than producing it.
 4. **The direction is causal.** Generation-time activation steering on $d_{\mathrm{imp}}$ changes invalidity-aware behavior on the 4-anchor math/code intervention grid; gated $\Delta$G improves by **+33 to +52 pp**, and a 16-model steering sweep confirms the math/code footprint.
 
-The full paper PDF is on the [OpenReview submission page](https://openreview.net/forum?id=ShHf3O62rH). This code/data release does not redistribute the paper source.
+Public manuscript links (arXiv and ACL Anthology) are pending. This code/data release does not redistribute the paper source.
 
 ---
 
@@ -34,12 +34,12 @@ python3 paper/generate_fig5_v2.py
 python3 paper/generate_figures.py --figs fig2 fig3 fig4 fig6
 
 # 4. The manuscript source is not redistributed here
-#    Use the OpenReview page for the accepted manuscript.
+#    Public manuscript links (arXiv and ACL Anthology) are pending.
 ```
 
 A lightweight smoke test takes < 5 minutes.
 
-For the heavier pipeline (extracting hidden states from a HuggingFace model, fitting probes, running steering), see `scripts/README.md` and the per-script CLI help. The intervention pipeline (`scripts/intervention_nullspace.py`) requires GPU access. The shipped v2 aggregates use LLM-assisted candidate labels under a fixed invalidity-aware rubric: nine main-grid cells apply provisional audit-subset fills, while the three Qwen3-8B cells use candidate-label passthrough. The supplementary Gemma-3-12B/code cell also applies provisional audit-subset fills. These provenance labels describe the effective inputs to the released aggregates and do not claim completed human adjudication.
+For the heavier pipeline (extracting hidden states from a HuggingFace model, fitting probes, running steering), see `scripts/README.md` and the per-script CLI help. The intervention pipeline (`scripts/intervention_nullspace.py`) requires GPU access. The shipped v2 aggregates use LLM-assisted candidate labels under a fixed invalidity-aware rubric: nine cells in the 4-anchor grid apply provisional audit-subset fills, while the three Qwen3-8B cells use candidate-label passthrough. The supplementary Gemma-3-12B/code cell also applies provisional audit-subset fills. These provenance labels describe the effective inputs to the released aggregates and do not claim completed human adjudication.
 
 ---
 
@@ -58,36 +58,37 @@ Fig 1 is a standalone TikZ overview figure and does not require the raw activati
 
 `experiments/d_struct_behav_matrix.json` is a small derived aggregate for the behavior-defined invalidity-aware direction reported in the paper. Its local builder consumes the omitted raw `experiments/signals/*.npy` activations plus the effective LLM-assisted labels used by the released intervention aggregates. In its eight math/code cells, the six non-Qwen3-8B cells use candidate labels plus provisional audit-subset fills and the two Qwen3-8B cells use candidate-label passthrough. The JSON is therefore shipped as the reproducibility target for this comparison, rather than as a one-command-from-scratch regeneration step in the lightweight release.
 
+`analysis/subspace_overlap/` ships the verified v2 scripts and frozen JSON results for the paper's 5--10-dimensional robustness check. The frozen JSONs are directly checkable in the lightweight release; rerunning the scripts requires the omitted raw signal tensors and cached directions, and the principal-angle script also loads the relevant model weights.
+
 ---
 
 ## Datasets
 
 | File | Size | Source | License |
 |---|---|---|---|
-| `data/math800.jsonl` | 260 KB | Self-built frozen set (16 categories × 50 matched A/U pairs; LLM-drafted, rule/manually verified) | this repo's LICENSE |
-| `data/code800.jsonl` | 263 KB | Self-built frozen set (8 categories × 100 matched A/U pairs; LLM-drafted, rule/manually verified) | this repo's LICENSE |
+| `data/math800.jsonl` | 260 KB | Self-built frozen set (16 categories × 50 matched A/U pairs; LLM-drafted, deterministically checked) | this repo's LICENSE |
+| `data/code800.jsonl` | 263 KB | Self-built frozen set (8 categories × 100 matched A/U pairs; LLM-drafted, deterministically checked) | this repo's LICENSE |
 | `data/fact800.jsonl` | 1.35 MB | Derived from SQuAD 2.0 train split (seed=42, official `is_impossible` labels) | SQuAD 2.0 (CC-BY-SA-4.0) — see `data/LICENSE-SQUAD.md` |
 | `data/falseqa.jsonl` | NOT SHIPPED | Reconstruct via `python src/data/fetch_falseqa.py && python src/data/clean_falseqa.py` (fetches from upstream `github.com/thunlp/FalseQA`, then applies cleanup). Upstream has no explicit LICENSE file at time of release; see `data/LICENSE-FALSEQA.md` for details. | upstream FalseQA — see `data/LICENSE-FALSEQA.md` |
 | `data/abstentionbench_gsm8k.jsonl` | 841 KB | GSM8K subset of AbstentionBench; see `src/data/clean_abstentionbench_gsm8k.py` | upstream AbstentionBench — see `data/LICENSE-ABSTENTIONBENCH.md` |
 | `data/difficulty_control_gsm8k.jsonl` | 194 KB | Difficulty-controlled split derived from GSM8K (Cobbe et al., 2021); see `scripts/prepare_difficulty_control.py` | upstream GSM8K — see `data/LICENSE-GSM8K.md` |
 
-Each row is a JSON object with at least `{id, form, answerable, prompt}` where `answerable ∈ {A, U}`. The matched-pair structure (A vs. U sharing the same form/topic) is preserved across all six datasets.
+Each row is a JSON object with at least `{id, form, answerable, prompt}` where `answerable ∈ {A, U}`. The matched-pair structure (A vs. U sharing the same form/topic) is preserved across the five shipped JSONL datasets and the fetch-and-clean FalseQA dataset.
 
 ---
 
 ## Required model weights (download separately from HuggingFace Hub)
 
-The pipeline expects 11 instruct models and 6 base models, all fetched from the HuggingFace Hub at runtime. Set `HF_HOME` if you want them cached outside `~/.cache/huggingface`. The full list is registered in `scripts/run_model_suite.sh` (`MODEL_PATHS`); the main grid is:
+The detection/orthogonality main grid uses 11 instruct checkpoints; the base/instruct comparison adds six base counterparts, and the deterministic steering-breadth check uses 16 model keys. Set `HF_HOME` if you want HuggingFace downloads cached outside `~/.cache/huggingface`. The frozen JSON artifacts are the authoritative record of experiment identity; the corresponding registries are in `scripts/run_extract_minimal.py` and `scripts/impossibility_steering.py`.
 
-- `meta-llama/Llama-3.1-8B-Instruct`, `mistralai/Mistral-7B-Instruct-v0.3`
-- `Qwen/Qwen2.5-7B-Instruct`, `Qwen/Qwen2.5-14B-Instruct`, `Qwen/Qwen2.5-32B-Instruct`
-- `Qwen/Qwen3-8B`, `Qwen/Qwen3-14B`, `Qwen/Qwen3-32B`
-- `google/gemma-3-4b-it`, `google/gemma-3-12b-it`
-- `microsoft/Phi-3-mini-4k-instruct`, `microsoft/Phi-4-mini-instruct`
-- `allenai/OLMo-2-1124-13B-Instruct`
-- `HuggingFaceTB/SmolLM2-1.7B-Instruct`
-- `mistralai/Mistral-Small-3.1-24B-Instruct-2503`, `mistralai/Mistral-Small-3.2-24B-Instruct-2506`
-- Plus the matched base models for the 6 base/instruct pairs (Qwen2.5-7B/14B/32B base, Qwen3-8B/14B base, the Llama-3 70B base proxy).
+The 11-model main grid is:
+
+- `HuggingFaceTB/SmolLM2-1.7B-Instruct`, `microsoft/Phi-4-mini-instruct`, `google/gemma-3-4b-it`
+- `mistralai/Mistral-7B-Instruct-v0.3`, `Qwen/Qwen3-8B`, `meta-llama/Llama-3.1-8B-Instruct`
+- `Qwen/Qwen3-14B`, `allenai/OLMo-2-1124-13B-Instruct`, `mistralai/Mistral-Small-24B-Instruct-2501`
+- `Qwen/Qwen3-32B`, `meta-llama/Llama-3.3-70B-Instruct`
+
+The 16-model v2det steering breadth uses the keys `gemma2`, `gemma3_4b`, `llama`, `mistral`, `mistral_small`, `mistral_small_3_2`, `olmo13b`, `phi3`, `phi4mini`, `qwen`, `qwen14b`, `qwen32b`, `qwen3_8b`, `qwen3_14b`, `qwen3_32b`, and `smollm2`. The six base/instruct pairs use Qwen2.5-7B/14B/32B base, Qwen3-8B/14B base, and the Llama-3.1-70B base proxy.
 
 Per-model peak layers are pre-resolved and registered in the relevant scripts; see `scripts/find_best_layers_smollm2_gemma2_phi3.py` for how to re-resolve.
 
@@ -100,7 +101,7 @@ Per-model peak layers are pre-resolved and registered in the relevant scripts; s
 ├── README.md                                 (this file)
 ├── LICENSE                                   (MIT license for original code and self-created artifacts)
 ├── requirements.txt
-├── paper/                                    (figure pipeline only — paper PDF is on OpenReview)
+├── paper/                                    (figure pipeline only — manuscript source is not included)
 │   ├── README.md                             (what this directory ships and what it doesn't)
 │   ├── _figure_style.py                      (shared matplotlib style helpers)
 │   ├── generate_figures.py                   (matplotlib figures: detection, orthogonality, GSRS, null-space)
@@ -111,8 +112,9 @@ Per-model peak layers are pre-resolved and registered in the relevant scripts; s
 │   ├── baselines/                            (semantic-entropy baseline)
 │   └── data/                                 (dataset construction)
 ├── analysis/                                 (post-hoc analyses for appendix tables)
+│   └── subspace_overlap/                     (verified v2 scripts + frozen multidimensional results)
 ├── docs/theory/                              (3 derivations cited by paper appendix)
-├── data/                                     (6 matched-pair .jsonl datasets + 4 LICENSE-* stubs)
+├── data/                                     (5 shipped JSONL datasets, FalseQA fetch support, license stubs)
 └── experiments/                              (curated subset; aggregate JSONs + the 4-anchor intervention factsheet)
     ├── main_grid_facts_v2.json
     ├── ablation_nullpc_results_11model.json
@@ -121,7 +123,9 @@ Per-model peak layers are pre-resolved and registered in the relevant scripts; s
     ├── intervention/
     │   ├── v2_final_4anchor_factsheet.md
     │   └── intervention_*_full_v2.json       (13 cells = 4 anchors × 3 datasets + 1 supplementary)
-    ├── steering/                             (per-cell aggregate steering JSONs across 16 models)
+    ├── steering/
+    │   ├── steering_*.json                   (source/legacy aggregates)
+    │   └── v2det/                            (48 current v2det JSONs + comparison report)
     └── analysis/d_ref_energy_decomp/         (11-model energy-decomposition table)
 ```
 
@@ -146,7 +150,7 @@ Some label-dependent aggregates, including `experiments/d_struct_behav_matrix.js
   title  = {Recognition--Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions},
   year   = {2026},
   booktitle = {Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing},
-  note   = {Main Conference; accepted manuscript available at https://openreview.net/forum?id=ShHf3O62rH}
+  note   = {Main Conference}
 }
 ```
 
@@ -166,4 +170,4 @@ The root [MIT License](LICENSE) applies to the authors' original code and self-c
 
 ## Reproducibility note
 
-All numerical claims in the paper PDF (on OpenReview) derive from the shipped artifacts under `experiments/` (curated subset). Re-running the extraction + analysis pipeline end-to-end from raw model weights is supported but requires ~150 GB of disk for the signals tree and a GPU for the intervention / steering experiments.
+Current paper claims derive from the shipped frozen artifacts under `experiments/` and `analysis/subspace_overlap/`. Re-running the extraction + analysis pipeline end-to-end from raw model weights is supported but requires ~150 GB of disk for the signals tree and a GPU for the intervention / steering experiments.

@@ -1,16 +1,17 @@
 # Data directory
 
-Six matched-pair `.jsonl` prompt sets. Each row is a JSON object with
+Five matched-pair JSONL prompt sets are shipped, with fetch-and-clean support
+for FalseQA. Each row is a JSON object with
 `{id, form, answerable, prompt}` (additional fields vary per file).
 `answerable ∈ {A, U}`; an A-prompt and its U-pair share the same form /
 topic / construction.
 
 | File | A/U size | Built by | Role in paper | Attribution |
 |---|---|---|---|---|
-| `math800.jsonl` | 800 A + 800 U (16 categories × 50 pairs) | frozen release set (see construction note) | Structural-impossibility benchmark, math domain | this repo's LICENSE |
-| `code800.jsonl` | 800 A + 800 U (8 categories × 100 pairs) | frozen release set (see construction note) | Structural-impossibility benchmark, code domain | this repo's LICENSE |
+| `math800.jsonl` | 800 A + 800 U (16 categories × 50 pairs) | `src/data/generate_math800.py` + frozen verification | Structural-impossibility benchmark, math domain | this repo's LICENSE |
+| `code800.jsonl` | 800 A + 800 U (8 categories × 100 pairs) | `src/data/generate_code800.py` + frozen verification | Structural-impossibility benchmark, code domain | this repo's LICENSE |
 | `fact800.jsonl` | 800 A + 800 U (SQuAD 2.0 sampled, seed=42) | `src/data/prepare_squad2.py` + `src/data/fix_fact800.py` | Epistemic-unanswerability scope-boundary benchmark | `LICENSE-SQUAD.md` |
-| `falseqa.jsonl` | matched-pair cleaned subset | `src/data/clean_falseqa.py` (cleaning of Hu et al. 2023) | Zero-shot false-premise transfer scope boundary | `LICENSE-FALSEQA.md` |
+| `falseqa.jsonl` (**NOT SHIPPED**) | matched-pair cleaned subset | `src/data/fetch_falseqa.py` + `src/data/clean_falseqa.py` (Hu et al., 2023) | Zero-shot false-premise transfer scope boundary | `LICENSE-FALSEQA.md` |
 | `abstentionbench_gsm8k.jsonl` | matched-pair GSM8K subset of AbstentionBench | `src/data/clean_abstentionbench_gsm8k.py` | Natural-distribution epistemic-style transfer + length-control analysis | `LICENSE-ABSTENTIONBENCH.md` |
 | `difficulty_control_gsm8k.jsonl` | difficulty-controlled split | `scripts/prepare_difficulty_control.py` | Difficulty-axis null check (§5) | `LICENSE-GSM8K.md` |
 
@@ -31,9 +32,9 @@ For the self-built math/code sets, the matched-pair structure is preserved by an
 
 ---
 
-## `math800` / `code800` construction (frozen; not regenerated here)
+## `math800` / `code800` construction
 
-`math800.jsonl` and `code800.jsonl` are frozen release datasets. This repository ships **no regeneration script** for them; reproducing the paper's results uses the shipped JSONL directly.
+`math800.jsonl` and `code800.jsonl` are frozen release datasets. The repository ships the stochastic candidate-generation scripts, but the frozen post-verification JSONL files—not exact generator replay—are the reproducibility targets.
 
 - **math800** — 16 structural-impossibility categories, 800 answerable (A) + 800 unanswerable (U) prompts (50 matched A/U pairs per category).
 - **code800** — 8 Python runtime-failure categories, 800 A + 800 U prompts (100 matched A/U pairs per category).
@@ -62,6 +63,6 @@ For the other transfer datasets (`falseqa.jsonl`, `abstentionbench_gsm8k.jsonl`,
 
 ## Notes
 
-- The shipped `math800.jsonl` / `code800.jsonl` are the **frozen release datasets** used in the paper and are the reproducibility target. Their A/U status was checked by the category rules described above (and by CPython execution for code). This release ships no regeneration script for them; reproducing paper results uses these JSONL files directly.
+- The shipped `math800.jsonl` / `code800.jsonl` are the **frozen release datasets** used in the paper and are the reproducibility target. Their A/U status was checked by the category rules described above (and by CPython execution for code). The stochastic generator scripts record the original API configuration but do not guarantee byte-identical replay.
 - `fact800.jsonl` contains CJK character content in some questions/contexts — these are genuine SQuAD 2.0 prompts about Mandarin/Hokkien etymology, place names, and similar topics. The CJK is meaningful prompt data, not metadata.
 - See the per-dataset `LICENSE-*.md` files for upstream attribution and redistribution terms.

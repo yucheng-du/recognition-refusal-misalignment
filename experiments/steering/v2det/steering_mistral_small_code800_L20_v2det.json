@@ -1,0 +1,357 @@
+{
+  "model": "mistral_small",
+  "dataset": "code800",
+  "layer": 20,
+  "n_samples_per_class": 100,
+  "proj_std": 1.3989613056182861,
+  "alphas": [
+    0.0,
+    5.0,
+    10.0,
+    20.0,
+    30.0,
+    40.0
+  ],
+  "results_by_alpha": {
+    "0.0": {
+      "metrics": {
+        "impossibility": {
+          "refusal_rate_U": 0.52,
+          "hallucination_rate_U": 0.48,
+          "non_refusal_rate_A": 0.88,
+          "wrong_refusal_rate_A": 0.12,
+          "overall_proxy": 0.7,
+          "n_U": 100,
+          "n_A": 100
+        },
+        "random": {
+          "refusal_rate_U": 0.52,
+          "hallucination_rate_U": 0.48,
+          "non_refusal_rate_A": 0.88,
+          "wrong_refusal_rate_A": 0.12,
+          "overall_proxy": 0.7,
+          "n_U": 100,
+          "n_A": 100
+        }
+      },
+      "raw_counts_U": {
+        "impossibility": {
+          "hallucination": 48,
+          "total": 100,
+          "correct_refusal": 52
+        },
+        "random": {
+          "hallucination": 48,
+          "total": 100,
+          "correct_refusal": 52
+        }
+      },
+      "raw_counts_A": {
+        "impossibility": {
+          "non_refusal": 88,
+          "total": 100,
+          "wrong_refusal": 12
+        },
+        "random": {
+          "non_refusal": 88,
+          "total": 100,
+          "wrong_refusal": 12
+        }
+      },
+      "v2det_diagnostics": {
+        "n_preservation_failure_impos": 11,
+        "n_preservation_failure_rand": 11,
+        "preservation_failure_rate_A_impos": 0.11,
+        "preservation_failure_rate_A_rand": 0.11,
+        "n_degenerate_impos": 14,
+        "n_degenerate_rand": 14,
+        "n_mixed_output_overrides_impos": 1,
+        "n_mixed_output_overrides_rand": 1
+      }
+    },
+    "5.0": {
+      "metrics": {
+        "impossibility": {
+          "refusal_rate_U": 0.51,
+          "hallucination_rate_U": 0.49,
+          "non_refusal_rate_A": 0.85,
+          "wrong_refusal_rate_A": 0.15,
+          "overall_proxy": 0.68,
+          "n_U": 100,
+          "n_A": 100
+        },
+        "random": {
+          "refusal_rate_U": 0.41,
+          "hallucination_rate_U": 0.59,
+          "non_refusal_rate_A": 0.91,
+          "wrong_refusal_rate_A": 0.09,
+          "overall_proxy": 0.66,
+          "n_U": 100,
+          "n_A": 100
+        }
+      },
+      "raw_counts_U": {
+        "impossibility": {
+          "hallucination": 49,
+          "total": 100,
+          "correct_refusal": 51
+        },
+        "random": {
+          "hallucination": 59,
+          "total": 100,
+          "correct_refusal": 41
+        }
+      },
+      "raw_counts_A": {
+        "impossibility": {
+          "non_refusal": 85,
+          "total": 100,
+          "wrong_refusal": 15
+        },
+        "random": {
+          "non_refusal": 91,
+          "total": 100,
+          "wrong_refusal": 9
+        }
+      },
+      "v2det_diagnostics": {
+        "n_preservation_failure_impos": 13,
+        "n_preservation_failure_rand": 8,
+        "preservation_failure_rate_A_impos": 0.13,
+        "preservation_failure_rate_A_rand": 0.08,
+        "n_degenerate_impos": 22,
+        "n_degenerate_rand": 15,
+        "n_mixed_output_overrides_impos": 4,
+        "n_mixed_output_overrides_rand": 8
+      }
+    },
+    "10.0": {
+      "metrics": {
+        "impossibility": {
+          "refusal_rate_U": 0.46,
+          "hallucination_rate_U": 0.54,
+          "non_refusal_rate_A": 0.78,
+          "wrong_refusal_rate_A": 0.22,
+          "overall_proxy": 0.62,
+          "n_U": 100,
+          "n_A": 100
+        },
+        "random": {
+          "refusal_rate_U": 0.24,
+          "hallucination_rate_U": 0.76,
+          "non_refusal_rate_A": 0.91,
+          "wrong_refusal_rate_A": 0.09,
+          "overall_proxy": 0.575,
+          "n_U": 100,
+          "n_A": 100
+        }
+      },
+      "raw_counts_U": {
+        "impossibility": {
+          "hallucination": 54,
+          "total": 100,
+          "correct_refusal": 46
+        },
+        "random": {
+          "hallucination": 76,
+          "total": 100,
+          "correct_refusal": 24
+        }
+      },
+      "raw_counts_A": {
+        "impossibility": {
+          "non_refusal": 78,
+          "total": 100,
+          "wrong_refusal": 22
+        },
+        "random": {
+          "non_refusal": 91,
+          "total": 100,
+          "wrong_refusal": 9
+        }
+      },
+      "v2det_diagnostics": {
+        "n_preservation_failure_impos": 21,
+        "n_preservation_failure_rand": 9,
+        "preservation_failure_rate_A_impos": 0.21,
+        "preservation_failure_rate_A_rand": 0.09,
+        "n_degenerate_impos": 30,
+        "n_degenerate_rand": 21,
+        "n_mixed_output_overrides_impos": 1,
+        "n_mixed_output_overrides_rand": 11
+      }
+    },
+    "20.0": {
+      "metrics": {
+        "impossibility": {
+          "refusal_rate_U": 0.04,
+          "hallucination_rate_U": 0.96,
+          "non_refusal_rate_A": 0.96,
+          "wrong_refusal_rate_A": 0.04,
+          "overall_proxy": 0.5,
+          "n_U": 100,
+          "n_A": 100
+        },
+        "random": {
+          "refusal_rate_U": 0.0,
+          "hallucination_rate_U": 1.0,
+          "non_refusal_rate_A": 0.13,
+          "wrong_refusal_rate_A": 0.87,
+          "overall_proxy": 0.065,
+          "n_U": 100,
+          "n_A": 100
+        }
+      },
+      "raw_counts_U": {
+        "impossibility": {
+          "hallucination": 96,
+          "total": 100,
+          "correct_refusal": 4
+        },
+        "random": {
+          "hallucination": 100,
+          "total": 100
+        }
+      },
+      "raw_counts_A": {
+        "impossibility": {
+          "non_refusal": 96,
+          "total": 100,
+          "wrong_refusal": 4
+        },
+        "random": {
+          "wrong_refusal": 87,
+          "total": 100,
+          "non_refusal": 13
+        }
+      },
+      "v2det_diagnostics": {
+        "n_preservation_failure_impos": 4,
+        "n_preservation_failure_rand": 87,
+        "preservation_failure_rate_A_impos": 0.04,
+        "preservation_failure_rate_A_rand": 0.87,
+        "n_degenerate_impos": 9,
+        "n_degenerate_rand": 167,
+        "n_mixed_output_overrides_impos": 0,
+        "n_mixed_output_overrides_rand": 0
+      }
+    },
+    "30.0": {
+      "metrics": {
+        "impossibility": {
+          "refusal_rate_U": 0.0,
+          "hallucination_rate_U": 1.0,
+          "non_refusal_rate_A": 0.84,
+          "wrong_refusal_rate_A": 0.16,
+          "overall_proxy": 0.42,
+          "n_U": 100,
+          "n_A": 100
+        },
+        "random": {
+          "refusal_rate_U": 0.0,
+          "hallucination_rate_U": 1.0,
+          "non_refusal_rate_A": 0.01,
+          "wrong_refusal_rate_A": 0.99,
+          "overall_proxy": 0.005,
+          "n_U": 100,
+          "n_A": 100
+        }
+      },
+      "raw_counts_U": {
+        "impossibility": {
+          "hallucination": 100,
+          "total": 100
+        },
+        "random": {
+          "hallucination": 100,
+          "total": 100
+        }
+      },
+      "raw_counts_A": {
+        "impossibility": {
+          "non_refusal": 84,
+          "total": 100,
+          "wrong_refusal": 16
+        },
+        "random": {
+          "wrong_refusal": 99,
+          "total": 100,
+          "non_refusal": 1
+        }
+      },
+      "v2det_diagnostics": {
+        "n_preservation_failure_impos": 16,
+        "n_preservation_failure_rand": 99,
+        "preservation_failure_rate_A_impos": 0.16,
+        "preservation_failure_rate_A_rand": 0.99,
+        "n_degenerate_impos": 25,
+        "n_degenerate_rand": 199,
+        "n_mixed_output_overrides_impos": 0,
+        "n_mixed_output_overrides_rand": 0
+      }
+    },
+    "40.0": {
+      "metrics": {
+        "impossibility": {
+          "refusal_rate_U": 0.0,
+          "hallucination_rate_U": 1.0,
+          "non_refusal_rate_A": 0.82,
+          "wrong_refusal_rate_A": 0.18,
+          "overall_proxy": 0.41,
+          "n_U": 100,
+          "n_A": 100
+        },
+        "random": {
+          "refusal_rate_U": 0.0,
+          "hallucination_rate_U": 1.0,
+          "non_refusal_rate_A": 0.0,
+          "wrong_refusal_rate_A": 1.0,
+          "overall_proxy": 0.0,
+          "n_U": 100,
+          "n_A": 100
+        }
+      },
+      "raw_counts_U": {
+        "impossibility": {
+          "hallucination": 100,
+          "total": 100
+        },
+        "random": {
+          "hallucination": 100,
+          "total": 100
+        }
+      },
+      "raw_counts_A": {
+        "impossibility": {
+          "non_refusal": 82,
+          "total": 100,
+          "wrong_refusal": 18
+        },
+        "random": {
+          "wrong_refusal": 100,
+          "total": 100
+        }
+      },
+      "v2det_diagnostics": {
+        "n_preservation_failure_impos": 18,
+        "n_preservation_failure_rand": 100,
+        "preservation_failure_rate_A_impos": 0.18,
+        "preservation_failure_rate_A_rand": 1.0,
+        "n_degenerate_impos": 39,
+        "n_degenerate_rand": 200,
+        "n_mixed_output_overrides_impos": 0,
+        "n_mixed_output_overrides_rand": 0
+      }
+    }
+  },
+  "best_alpha": 0.0,
+  "hallucination_reduction": 0.0,
+  "hallucination_reduction_pct": 0.0,
+  "non_refusal_cost": 0.0,
+  "verification_protocol": "v2_deterministic_invalidity_aware_with_mixed_output_guard",
+  "n_mixed_output_overrides_impos": 6,
+  "n_mixed_output_overrides_rand": 20,
+  "n_degenerate_impos": 139,
+  "n_degenerate_rand": 616,
+  "_note": "v2det re-aggregation of legacy steering samples. preservation_failure (A-side post-steering collapse) is folded into wrong_refusal_rate_A for v1 numerical comparability and exposed separately in v2det_diagnostics."
+}

@@ -1,8 +1,8 @@
 # Recognition–Refusal Misalignment in LLMs
 
-This repository accompanies the EMNLP 2026 Main Conference paper *"Recognition–Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions"* by Yucheng Du and Xiyang Hu. It contains the matched-pair datasets, the analysis / extraction / steering pipeline, the figure-regeneration scripts, and the curated experiment artifacts needed to reproduce the shipped figure assets. The paper source (`main.tex`, `references.bib`, etc.) is maintained separately and is not redistributed in this code/data release. Public manuscript links (arXiv and ACL Anthology) are pending.
+This repository accompanies the EMNLP 2026 Main Conference paper *"Recognition–Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions"* by Yucheng Du and Xiyang Hu. It contains the matched-pair datasets, the analysis / extraction / steering pipeline, the figure-regeneration scripts, and the curated experiment artifacts needed to reproduce the shipped figure assets. The paper is available on [arXiv](https://arxiv.org/abs/2608.29109). The paper source (`main.tex`, `references.bib`, etc.) is maintained separately and is not redistributed in this code/data release; the ACL Anthology record is pending.
 
-Authors: Yucheng Du (University of Southern California; [yuchengd@usc.edu](mailto:yuchengd@usc.edu)) and Xiyang Hu (Arizona State University). Correspondence: Xiyang Hu ([xiyanghu@asu.edu](mailto:xiyanghu@asu.edu)).
+Authors: Yucheng Du (University of Southern California; [yuchengd@usc.edu](mailto:yuchengd@usc.edu)) and [Xiyang Hu](https://xiyanghu.github.io) (Arizona State University). Correspondence: Xiyang Hu ([xiyanghu@asu.edu](mailto:xiyanghu@asu.edu)).
 
 ---
 
@@ -15,7 +15,7 @@ Across an 11-model main grid spanning 1.7B–70B and two structural-impossibilit
 3. **The misalignment largely predates RLHF.** Across 6 base/instruct pairs on math800, $\Delta\cos$ is $[-0.008, +0.110]$ (mean $+0.037$) — instruction tuning modulates the angle in a low-cosine regime rather than producing it.
 4. **The direction is causal.** Generation-time activation steering on $d_{\mathrm{imp}}$ changes invalidity-aware behavior on the 4-anchor math/code intervention grid; gated $\Delta$G improves by **+33 to +52 pp**, and a 16-model steering sweep confirms the math/code footprint.
 
-Public manuscript links (arXiv and ACL Anthology) are pending. This code/data release does not redistribute the paper source.
+The manuscript is available as [arXiv:2608.29109](https://arxiv.org/abs/2608.29109); the ACL Anthology record is pending. This code/data release does not redistribute the paper source.
 
 ---
 
@@ -34,7 +34,7 @@ python3 paper/generate_fig5_v2.py
 python3 paper/generate_figures.py --figs fig2 fig3 fig4 fig6
 
 # 4. The manuscript source is not redistributed here
-#    Public manuscript links (arXiv and ACL Anthology) are pending.
+#    Manuscript: https://arxiv.org/abs/2608.29109
 ```
 
 A lightweight smoke test takes < 5 minutes.
@@ -143,6 +143,8 @@ Some label-dependent aggregates, including `experiments/d_struct_behav_matrix.js
 ---
 
 ## Citation
+
+Preprint: [arXiv:2608.29109](https://arxiv.org/abs/2608.29109)
 
 ```bibtex
 @inproceedings{du2026recognition,

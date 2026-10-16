@@ -28,7 +28,9 @@ topic / construction.
 }
 ```
 
-For the self-built math/code sets, the matched-pair structure is preserved by an additional `pair_id` field linking each A to its U partner.
+For the self-built math/code sets, remove the final `a`/`u` from `id` to recover the matched-pair key (`row["id"][:-1]`). Each key has exactly one A and one U row with the same `form` and `category`. The frozen files do not contain a `pair_id` field.
+
+The two frozen sets are also available as the `math800` and `code800` configurations on [Hugging Face](https://huggingface.co/datasets/yucheng-du/recognition-refusal-misalignment). Each configuration exposes all 1,600 rows in a single `test` split; see the dataset card for loading examples and source checksums.
 
 ---
 
@@ -37,8 +39,8 @@ For the self-built math/code sets, the matched-pair structure is preserved by an
 `math800.jsonl` and `code800.jsonl` are frozen release datasets. The repository ships the stochastic candidate-generation scripts, but the frozen post-verification JSONL files—not exact generator replay—are the reproducibility targets.
 
 - **math800** — 16 structural-impossibility categories, 800 answerable (A) + 800 unanswerable (U) prompts (50 matched A/U pairs per category).
-- **code800** — 8 Python runtime-failure categories, 800 A + 800 U prompts (100 matched A/U pairs per category).
-- Within each A/U pair the two prompts share form, topic, and construction, differing only in answerability: A is well-posed, while U is structurally impossible (math) or raises a category-correct runtime failure (code).
+- **code800** — 8 Python failure categories, 800 A + 800 U prompts (100 matched A/U pairs per category).
+- Within each A/U pair the two prompts share form, topic, and construction, differing only in answerability: A is well-posed, while U is structurally impossible (math) or raises a category-correct runtime failure or involves unbounded iteration (code).
 - Prompts were produced by LLM-assisted candidate drafting and then filtered and verified before freezing — math A/U checked against each category's formal rule, code A/U checked by executing the expression in CPython, with duplicate prompts removed.
 
 ---

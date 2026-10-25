@@ -2,7 +2,7 @@
 
 Code, datasets, and frozen experiment artifacts for **Recognition–Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions** (EMNLP 2026 Main Conference).
 
-**[Paper](https://arxiv.org/abs/2608.29109) · [Hugging Face datasets](https://huggingface.co/datasets/yucheng-du/recognition-refusal-misalignment) · [Pipeline guide](scripts/README.md) · [Figure regeneration](paper/README.md)**
+**[Proceedings](https://aclanthology.org/2026.emnlp-main.1078/) · [arXiv](https://arxiv.org/abs/2608.29109) · [Hugging Face datasets](https://huggingface.co/datasets/yucheng-du/recognition-refusal-misalignment) · [Pipeline guide](scripts/README.md) · [Figure regeneration](paper/README.md)**
 
 Across 11 instruction-tuned models (1.7B–70B), a one-dimensional direction detects structurally unanswerable math/code prompts with mean AUC **0.939**, yet is nearly orthogonal to the safety-refusal direction (mean cosine **0.087**).
 
@@ -50,15 +50,25 @@ Additional resources:
 
 ## Citation
 
-The [preprint](https://arxiv.org/abs/2608.29109) is available now; the ACL Anthology record is pending. Manuscript source is maintained separately and is not included in this release.
+The [published paper](https://aclanthology.org/2026.emnlp-main.1078/) and [arXiv preprint](https://arxiv.org/abs/2608.29109) are available. Manuscript source is maintained separately and is not included in this release.
 
 ```bibtex
-@inproceedings{du2026recognition,
-  author = {Yucheng Du and Xiyang Hu},
-  title  = {Recognition--Refusal Misalignment in LLMs: Why Models Answer Structurally Unanswerable Questions},
-  year   = {2026},
-  booktitle = {Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing},
-  note   = {Main Conference}
+@inproceedings{du-hu-2026-recognition,
+    title = "Recognition{--}Refusal Misalignment in {LLM}s: Why Models Answer Structurally Unanswerable Questions",
+    author = "Du, Yucheng  and
+      Hu, Xiyang",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-main.1078/",
+    pages = "24766--24794",
+    ISBN = "979-8-89176-459-0"
 }
 ```
 

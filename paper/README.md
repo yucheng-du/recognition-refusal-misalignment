@@ -1,8 +1,9 @@
 # Figure regeneration
 
 This directory contains figure assets and their regeneration pipeline. The
-[paper](https://arxiv.org/abs/2608.29109) is available on arXiv; its ACL Anthology
-record is pending. Manuscript source (`main.tex`, `references.bib`, etc.) is
+[paper](https://aclanthology.org/2026.emnlp-main.1078/) is published in the EMNLP 2026
+proceedings and is also available on [arXiv](https://arxiv.org/abs/2608.29109).
+Manuscript source (`main.tex`, `references.bib`, etc.) is
 maintained separately and is not redistributed in this code/data release.
 
 ## Quickstart
